@@ -4,19 +4,13 @@
   "description": "Reason workflow with Esy",
   "license": "MIT",
   "esy": {
-    "build": [
-      ["refmterr", "jbuilder", "build"]
-    ],
-    "install": [
-      "esy-installer"
-    ],
+    "build": [["refmterr", "jbuilder", "build"]],
+    "install": ["esy-installer"],
     "buildsInSource": "_build"
   },
   "dependencies": {
     "@esy-ocaml/esy-installer": "^0.0.0",
     "@opam/jbuilder": "^1.0.0-beta14",
-    "@opam/lambda-term": "^1.11.0",
-    "@opam/lwt": "^3.1.0",
     "@opam/reason": "^3.0.0",
     "refmterr": "^3.0.4"
   },
@@ -24,10 +18,10 @@
     "**/@opam/result": "1.2.0"
   },
   "peerDependencies": {
-    "ocaml": "~4.6.0"
+    "ocaml": "~4.2.3"
   },
   "devDependencies": {
     "@esy-ocaml/merlin": "*",
-    "ocaml": "~4.6.0"
+    "ocaml": "~4.2.3"
   }
 }
