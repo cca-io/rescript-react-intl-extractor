@@ -9,7 +9,27 @@ This assumes that you are using the
 <FormattedMessage id="some.message.id" defaultMessage="Some message" />
 ```
 
-The reason formatter (`refmt`) needs to be on the path.
+The output (a JSON array of all extracted messages sorted by id) is written to stdout. It will look like this:
+
+```
+[
+  {
+    "id": "some.message.id",
+    "defaultMessage": "Some message"
+  },
+  {
+    "id": "some.other.message.id",
+    "defaultMessage": "Some other message"
+  },
+  ...
+]
+```
+
+## Download
+
+A macOS binary is available for download on the [releases page].
+
+Download the binary and make it executable using `chmod +x`.
 
 ## Usage
 
@@ -19,7 +39,7 @@ bs-react-intl-extractor <directory>
 
 where `directory` is the directory containing yuor Reason source files.
 
-The output (a JSON array of all extracted messages sorted by id) is written to stdout.
+The reason formatter (`refmt`) needs to be on the path.
 
 ## Known Issues
 
@@ -60,4 +80,5 @@ Shell into environment:
 [reason]: https://reasonml.github.io
 [bs-react-intl]: https://github.com/alexfedoseev/bs-react-intl
 [react-intl]: https://github.com/yahoo/react-intl
+[releases page]: https://github.com/cknitt/bs-react-intl-extractor/releases
 [esy]: https://esy.sh
