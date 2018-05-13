@@ -6,8 +6,6 @@ os:
 - osx
 install:
 - npm install --global esy
-- if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then npm install --global reason-cli@3.1.0-linux; fi
-- if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then npm install --global reason-cli@3.1.0-darwin; fi
 - esy install
 script:
 - esy build
