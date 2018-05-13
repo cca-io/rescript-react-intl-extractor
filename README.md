@@ -1,15 +1,33 @@
-# esy-reason-project
+# bs-react-intl-extractor
 
-[![Build Status](https://travis-ci.org/esy-ocaml/esy-reason-project.svg?branch=master)](https://travis-ci.org/esy-ocaml/esy-reason-project)
+Extracts messages for localization from [Reason] source files.
 
-A project which demonstrates a Reason workflow with [Esy][].
+This assumes that you are using the
+[bs-react-intl] bindings for [react-intl] and your source files define formatted messages as follows:
 
-[Esy]: https://github.com/esy-ocaml/esy
+```re
+<FormattedMessage id="some.message.id" defaultMessage="Some message" />
+```
 
+The reason formatter (`refmt`) needs to be on the path.
 
 ## Usage
 
-You need Esy, you can install the beta using [npm][]:
+```sh
+bs-react-intl-extractor <directory>
+```
+
+where `directory` is the directory containing yuor Reason source files.
+
+The output (a JSON array of all extracted messages sorted by id) is written to stdout.
+
+## Known Issues
+
+Performance is not optimal right now as the `refmt` executable is forked for the processing of each file.
+
+## How to build
+
+Install [esy] as follows:
 
     % npm install -g esy@latest
 
@@ -33,8 +51,13 @@ using:
 
 And test compiled executable:
 
-    % esy ./_build/default/bin/hello.exe
+    % esy ./_build/default/bin/Extract.exe
 
 Shell into environment:
 
     % esy shell
+
+[reason]: https://reasonml.github.io
+[bs-react-intl]: https://github.com/alexfedoseev/bs-react-intl
+[react-intl]: https://github.com/yahoo/react-intl
+[esy]: https://esy.sh
