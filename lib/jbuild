@@ -4,4 +4,4 @@
  ((name lib)
   (flags (-w -40 -w +26))
   (public_name esy-reason-project)
-  (libraries (compiler-libs.common))))
+  (libraries (ocaml-migrate-parsetree yojson))))

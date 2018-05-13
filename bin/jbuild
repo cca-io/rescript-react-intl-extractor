@@ -1,6 +1,6 @@
 (jbuild_version 1)
 
 (executable
- ((name Ppx)
-  (public_name Ppx)
+ ((name Extract)
+  (public_name Extract)
   (libraries (lib))))
