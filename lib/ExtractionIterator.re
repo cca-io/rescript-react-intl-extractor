@@ -1,18 +1,11 @@
-open Ast_mapper;
+open Ast_iterator;
 
 open Parsetree;
 
 let getLabelString = (key, labels) =>
-  try (
-    {
-      let value = labels |> List.assoc(Asttypes.Labelled(key));
-      switch (value) {
-      | {pexp_desc: Pexp_constant(Pconst_string(text, _))} => Some(text)
-      | _ => None
-      };
-    }
-  ) {
-  | Not_found => None
+  switch (labels |> List.assoc_opt(Asttypes.Labelled(key))) {
+  | Some({pexp_desc: Pexp_constant(Pconst_string(text, _))}) => Some(text)
+  | _ => None
   };
 
 let getMessage = expr =>
@@ -36,13 +29,13 @@ let getMessage = expr =>
   | _ => None
   };
 
-let getMapper = callback => {
-  ...default_mapper,
-  expr: (mapper, expr) => {
+let getIterator = callback => {
+  ...default_iterator,
+  expr: (iterator, expr) => {
     switch (getMessage(expr)) {
     | Some(message) => callback(message)
     | None => ()
     };
-    default_mapper.expr(mapper, expr);
+    default_iterator.expr(iterator, expr);
   },
 };
