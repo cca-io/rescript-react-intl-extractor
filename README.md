@@ -37,7 +37,7 @@ Download the binary and make it executable using `chmod +x`.
 bs-react-intl-extractor <directory>
 ```
 
-where `directory` is the directory containing yuor Reason source files.
+where `directory` is the directory containing your Reason source files.
 
 The reason formatter (`refmt`) needs to be on the path.
 
