@@ -47,9 +47,9 @@ The output (a JSON array of all extracted messages sorted by id) is written to s
 
 ## Download
 
-A macOS binary is available for download on the [releases page].
+macOS and Linux binaries are available for download on the [releases page].
 
-Download the binary and make it executable using `chmod +x`.
+After you have downloaded a binary, make it executable using `chmod +x`.
 
 ## Usage
 
