@@ -4,7 +4,7 @@ open Lib;
 
 let messages = ref([]);
 
-let iterator = ExtractionIterator.getIterator(message => messages := [message, ...messages^]);
+let iterator = ExtractionIterator.getIterator(message => (messages := [message, ...messages^]) |> ignore);
 
 let extractMessages = ast => iterator.structure(iterator, Obj.magic(ast));
 

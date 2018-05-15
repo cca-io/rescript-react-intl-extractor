@@ -1,3 +1,5 @@
+module StringMap = Map.Make(String);
+
 type t = {
   id: string,
   defaultMessage: string,
@@ -5,6 +7,16 @@ type t = {
 };
 
 let compare = (a, b) => compare(a.id, b.id);
+
+let fromStringMap = map => {
+  let id = map |> StringMap.find_opt("id");
+  let defaultMessage = map |> StringMap.find_opt("defaultMessage");
+  let description = map |> StringMap.find_opt("description");
+  switch (id, defaultMessage) {
+  | (Some(id), Some(defaultMessage)) => Some({id, defaultMessage, description})
+  | _ => None
+  };
+};
 
 let toJson = ({id, defaultMessage, description}) =>
   switch (description) {
