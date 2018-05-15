@@ -2,11 +2,27 @@
 
 Extracts messages for localization from [Reason] source files.
 
-This assumes that you are using the
-[bs-react-intl] bindings for [react-intl] and your source files define formatted messages as follows:
+This assumes that you are using the [bs-react-intl] bindings for [react-intl]
+and your source files define formatted messages either inline in `FormattedMessage`:
 
 ```re
 <FormattedMessage id="some.message.id" defaultMessage="Some message" />
+```
+
+or using `ReactIntl.defineMessages`:
+
+```
+let messages =
+  ReactIntl.defineMessages(. {
+    "hello": {
+      "id": "message.hello",
+      "defaultMessage": "Hello",
+    },
+    "world": {
+      "id": "message.world",
+      "defaultMessage": "World",
+    },
+  });
 ```
 
 The output (a JSON array of all extracted messages sorted by id) is written to stdout. It will look like this:
@@ -14,12 +30,16 @@ The output (a JSON array of all extracted messages sorted by id) is written to s
 ```
 [
   {
-    "id": "some.message.id",
-    "defaultMessage": "Some message"
+    "id": "message.hello",
+    "defaultMessage": "Hello"
   },
   {
-    "id": "some.other.message.id",
-    "defaultMessage": "Some other message"
+    "id": "message.world",
+    "defaultMessage": "World"
+  },
+  {
+    "id": "some.message.id",
+    "defaultMessage": "Some message"
   },
   ...
 ]
