@@ -22,6 +22,7 @@ let readMessagesFromChannel = channel =>
 let processFile = filename => {
   let channel = Unix.open_process_in("refmt -p binary " ++ filename);
   readMessagesFromChannel(channel);
+  Unix.close_process_in(channel) |> ignore;
 };
 
 let rec processDirectory = dir =>
