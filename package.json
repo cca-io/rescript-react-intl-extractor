@@ -8,6 +8,9 @@
     "install": ["esy-installer"],
     "buildsInSource": "_build"
   },
+  "scripts": {
+    "format": "refmt --in-place -w 120 `find bin lib -name \"*.re\"`"
+  },
   "dependencies": {
     "@esy-ocaml/esy-installer": "^0.0.0",
     "@opam/jbuilder": "^1.0.0-beta14",
