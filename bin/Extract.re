@@ -2,9 +2,21 @@ open Migrate_parsetree;
 
 open Lib;
 
-let messages = ref([]);
+module StringMap = Map.Make(String);
 
-let iterator = ExtractionIterator.getIterator(message => (messages := [message, ...messages^]) |> ignore);
+let messages = ref(StringMap.empty);
+
+let iterator =
+  ExtractionIterator.getIterator(message => {
+    let {Message.id} = message;
+    if (messages^ |> StringMap.mem(id)) {
+      Printf.eprintf("Error: duplicate message id: %s\n", id);
+      exit(3);
+    } else {
+      messages := messages^ |> StringMap.add(id, message);
+      ();
+    };
+  });
 
 let extractMessages = ast => iterator.structure(iterator, Obj.magic(ast));
 
@@ -37,7 +49,12 @@ let rec processDirectory = dir =>
      });
 
 let outputJson = () => {
-  let sortedJsonObjects = messages^ |> List.sort(Message.compare) |> List.map(Message.toJson);
+  let sortedJsonObjects =
+    messages^
+    |> StringMap.bindings
+    |> List.map(((_id, message)) => message)
+    |> List.sort(Message.compare)
+    |> List.map(Message.toJson);
   Yojson.Basic.pretty_to_channel(stdout, `List(sortedJsonObjects));
   print_newline();
 };
