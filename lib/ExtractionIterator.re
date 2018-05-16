@@ -94,6 +94,16 @@ let getIterator = callback => {
           ),
       } =>
       extractMessagesFromRecords(callback, fields)
+    /* Match [@intl.messages] */
+    | {
+        pexp_desc:
+          Pexp_extension((
+            {txt: "bs.obj"},
+            PStr([{pstr_desc: Pstr_eval({pexp_desc: Pexp_record(fields, _)}, _), pstr_loc: _}]),
+          )),
+        pexp_attributes: [({txt: "intl.messages"}, _)],
+      } =>
+      extractMessagesFromRecords(callback, fields)
     | _ => ()
     };
     default_iterator.expr(iterator, expr);

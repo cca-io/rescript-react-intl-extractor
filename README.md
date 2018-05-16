@@ -3,15 +3,17 @@
 Extracts messages for localization from [Reason] source files.
 
 This assumes that you are using the [bs-react-intl] bindings for [react-intl]
-and your source files define formatted messages either inline in `FormattedMessage`:
+and your source files define formatted messages in one of the following three ways:
+
+1.  inline in `FormattedMessage`:
 
 ```re
 <FormattedMessage id="some.message.id" defaultMessage="Some message" />
 ```
 
-or using `ReactIntl.defineMessages`:
+2.  using `ReactIntl.defineMessages`:
 
-```
+```re
 let messages =
   ReactIntl.defineMessages(. {
     "hello": {
@@ -23,6 +25,23 @@ let messages =
       "defaultMessage": "World",
     },
   });
+```
+
+3.  using the attribute `[@intl.messages]`:
+
+```re
+let messages =
+  [@intl.messages]
+  {
+    "hello": {
+      "id": "message.hello",
+      "defaultMessage": "Hello",
+    },
+    "world": {
+      "id": "message.world",
+      "defaultMessage": "World",
+    },
+  };
 ```
 
 The output (a JSON array of all extracted messages sorted by id) is written to stdout. It will look like this:
