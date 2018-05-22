@@ -3,9 +3,21 @@
 [![Build Status](https://travis-ci.org/cknitt/bs-react-intl-extractor.svg?branch=master)](https://travis-ci.org/cknitt/bs-react-intl-extractor)
 
 Extracts messages for localization from [Reason] source files.
+This assumes that you are using the [bs-react-intl] bindings for [react-intl].
 
-This assumes that you are using the [bs-react-intl] bindings for [react-intl]
-and your source files define formatted messages in one of the following three ways:
+## Installation
+
+macOS and Linux binaries are available for download on the [releases page].
+
+## Usage
+
+```sh
+bs-react-intl-extractor [path...]
+```
+
+where `path` is a Reason source file or a directory containing Reason source files. Multiple files/directories may be specified.
+
+Formatted messages may be defined in your source files in one of the following three ways:
 
 1.  inline in `FormattedMessage`:
 
@@ -90,26 +102,6 @@ The output (a JSON array of all extracted messages sorted by id) is written to s
   }
 ]
 ```
-
-## Download
-
-macOS and Linux binaries are available for download on the [releases page].
-
-After you have downloaded a binary, make it executable using `chmod +x`.
-
-## Usage
-
-```sh
-bs-react-intl-extractor directory ...
-```
-
-where `directory` is a directory containing Reason source files. Multiple directories may be specified.
-
-The reason formatter (`refmt`) needs to be on the path.
-
-## Known Issues
-
-Performance is not optimal right now as the `refmt` executable is forked for the processing of each file.
 
 ## How to build
 
