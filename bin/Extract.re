@@ -78,3 +78,5 @@ switch (inputFilenames^) {
 | [] => Arg.usage(args, usage)
 | filenames => filenames |> List.rev |> List.iter(processDirectory)
 };
+
+outputJson();
