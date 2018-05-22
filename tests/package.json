@@ -1,0 +1,15 @@
+{
+  "name": "tests",
+  "version": "1.0.0",
+  "description": "bs-react-intl-extractor tests",
+  "repository": "https://github.com/cknitt/bs-react-intl-extractor",
+  "author": "Christoph Knittel",
+  "license": "MIT",
+  "scripts": {
+    "test": "jest"
+  },
+  "devDependencies": {
+    "command-line-test": "^1.0.10",
+    "jest": "^22.4.4"
+  }
+}
