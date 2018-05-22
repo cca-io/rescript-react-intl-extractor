@@ -9,13 +9,21 @@ and your source files define formatted messages in one of the following three wa
 
 1.  inline in `FormattedMessage`:
 
-```re
+```reason
+<ReactIntl.FormattedMessage id="some.message.id" defaultMessage="Some message" />
+```
+
+or
+
+```reason
+open ReactIntl;
+...
 <FormattedMessage id="some.message.id" defaultMessage="Some message" />
 ```
 
 2.  using `ReactIntl.defineMessages`:
 
-```re
+```reason
 let messages =
   ReactIntl.defineMessages(. {
     "hello": {
@@ -29,9 +37,27 @@ let messages =
   });
 ```
 
+or
+
+```reason
+open ReactIntl;
+...
+let messages =
+  defineMessages(. {
+    "hello": {
+      "id": "message.hello",
+      "defaultMessage": "Hello",
+    },
+    "world": {
+      "id": "message.world",
+      "defaultMessage": "World",
+    },
+  });
+```
+
 3.  using the attribute `[@intl.messages]`:
 
-```re
+```reason
 let messages =
   [@intl.messages]
   {
@@ -48,7 +74,7 @@ let messages =
 
 The output (a JSON array of all extracted messages sorted by id) is written to stdout. It will look like this:
 
-```
+```json
 [
   {
     "id": "message.hello",
@@ -61,8 +87,7 @@ The output (a JSON array of all extracted messages sorted by id) is written to s
   {
     "id": "some.message.id",
     "defaultMessage": "Some message"
-  },
-  ...
+  }
 ]
 ```
 

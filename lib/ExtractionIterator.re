@@ -56,29 +56,35 @@ let extractMessagesFromRecords = (callback, records) =>
        }
      );
 
+let matchesFormattedMessage = ident =>
+  switch (ident) {
+  | Ldot(Ldot(Lident("ReactIntl"), "FormattedMessage"), "createElement")
+  | Ldot(Lident("FormattedMessage"), "createElement") => true
+  | _ => false
+  };
+
+let matchesDefineMessages = ident =>
+  switch (ident) {
+  | Ldot(Lident("ReactIntl"), "defineMessages")
+  | Lident("defineMessages") => true
+  | _ => false
+  };
+
 let getIterator = callback => {
   ...default_iterator,
   expr: (iterator, expr) => {
     switch (expr) {
-    /* Match ReactIntl.FormattedMessage.createElement */
-    | {
-        pexp_desc:
-          Pexp_apply(
-            {
-              pexp_desc: Pexp_ident({txt: Ldot(Ldot(Lident("ReactIntl"), "FormattedMessage"), "createElement"), _}),
-            },
-            labels,
-          ),
-      } =>
+    /* Match (ReactIntl.)FormattedMessage.createElement */
+    | {pexp_desc: Pexp_apply({pexp_desc: Pexp_ident({txt, _})}, labels)} when matchesFormattedMessage(txt) =>
       switch (extractMessageFromLabels(labels)) {
       | Some(message) => callback(message)
       | _ => ()
       }
-    /* Match ReactIntl.defineMessages */
+    /* Match (ReactIntl.)defineMessages */
     | {
         pexp_desc:
           Pexp_apply(
-            {pexp_desc: Pexp_ident({txt: Ldot(Lident("ReactIntl"), "defineMessages"), _})},
+            {pexp_desc: Pexp_ident({txt, _})},
             [
               (
                 Asttypes.Nolabel,
@@ -92,7 +98,8 @@ let getIterator = callback => {
               ),
             ],
           ),
-      } =>
+      }
+        when matchesDefineMessages(txt) =>
       extractMessagesFromRecords(callback, fields)
     /* Match [@intl.messages] */
     | {
