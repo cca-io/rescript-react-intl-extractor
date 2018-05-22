@@ -1,6 +1,6 @@
 {
   "name": "bs-react-intl-extractor",
-  "version": "0.1.0",
+  "version": "0.4.0",
   "description": "Message extractor for bs-react-intl",
   "license": "MIT",
   "esy": {
@@ -9,7 +9,8 @@
     "buildsInSource": "_build"
   },
   "scripts": {
-    "format": "refmt --in-place -w 120 `find bin lib -name \"*.re\"`"
+    "format": "refmt --in-place -w 120 `find bin lib -name \"*.re\"`",
+    "setVersion": "node setVersion.js"
   },
   "dependencies": {
     "@esy-ocaml/esy-installer": "^0.0.0",
