@@ -100,10 +100,10 @@ After you have downloaded a binary, make it executable using `chmod +x`.
 ## Usage
 
 ```sh
-bs-react-intl-extractor <directory>
+bs-react-intl-extractor directory ...
 ```
 
-where `directory` is the directory containing your Reason source files.
+where `directory` is a directory containing Reason source files. Multiple directories may be specified.
 
 The reason formatter (`refmt`) needs to be on the path.
 

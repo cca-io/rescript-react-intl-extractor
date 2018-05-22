@@ -31,7 +31,7 @@ let readMessagesFromChannel = channel =>
   | Result.Error(Unknown_version(v)) => Printf.eprintf("Error: unknown AST version: %s\n", v)
   };
 
-let processFile = filename => {
+let processReasonFile = filename => {
   let channel = Unix.open_process_in("refmt -p binary " ++ filename);
   readMessagesFromChannel(channel);
   Unix.close_process_in(channel) |> ignore;
@@ -44,7 +44,7 @@ let rec processDirectory = dir =>
        if (Sys.is_directory(path)) {
          processDirectory(path);
        } else if (Filename.extension(filename) == ".re") {
-         processFile(path);
+         processReasonFile(path);
        };
      });
 
@@ -59,16 +59,22 @@ let outputJson = () => {
   print_newline();
 };
 
-switch (Array.to_list(Sys.argv)) {
-| [_exe, dir] =>
-  if (! Sys.is_directory(dir)) {
-    Printf.eprintf("Not a directory: %s\n", dir);
-    exit(2);
-  };
-  processDirectory(dir);
-  outputJson();
-| [exe, ..._params] =>
-  Printf.eprintf("Usage: %s <directory>\n", exe);
-  exit(1);
-| _ => () /* cannot happen */
+let inputFilenames = ref([]);
+
+let processInputFilename = filename => inputFilenames := [filename, ...inputFilenames^];
+
+let showVersion = () => {
+  print_endline(Version.version);
+  exit(0);
+};
+
+let args = [("-v", Arg.Unit(showVersion), "shows the program version")];
+
+let usage = "Usage: " ++ Sys.argv[0] ++ " directory ...";
+
+Arg.parse(args, processInputFilename, usage);
+
+switch (inputFilenames^) {
+| [] => Arg.usage(args, usage)
+| filenames => filenames |> List.rev |> List.iter(processDirectory)
 };
