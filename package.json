@@ -10,7 +10,8 @@
   },
   "scripts": {
     "format": "refmt --in-place -w 120 `find bin lib -name \"*.re\"`",
-    "setVersion": "node setVersion.js"
+    "setVersion": "node scripts/setVersion.js",
+    "zip": "esy build && node scripts/createZip.js"
   },
   "dependencies": {
     "@esy-ocaml/esy-installer": "^0.0.0",
