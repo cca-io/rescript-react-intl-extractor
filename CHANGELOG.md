@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.4.0 - 2018-05-25
+
+* Directly use Reason parser api instead of forking the refmt exe for each file.
+  Message extraction is now lightning fast! 😀
+* Command line args
+  * allow multiple source directories to be specified
+  * support -v and -help options
+* Support message extraction when `open ReactIntl;` was used.
+* Added tests + Travis CI.
+
 ## 0.3.0 - 2018-05-16
 
 * Support `[@intl.messages]` for marking messages for extraction.
@@ -11,4 +21,4 @@
 
 ## 0.1.0 - 2018-05-13
 
-Initial Release.
+* Initial Release.
