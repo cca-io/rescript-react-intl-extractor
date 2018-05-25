@@ -1,5 +1,5 @@
 const fs = require("fs");
-const { version } = require("./package.json");
+const { version } = require("../package.json");
 
 fs.writeFileSync("bin/Version.re", `let version = "${version}";`);
 
