@@ -20,25 +20,26 @@ let iterator =
 
 let extractMessages = ast => iterator.structure(iterator, Obj.magic(ast));
 
-let processReasonFile = filename => {
-  let channel = open_in_bin(filename);
+let processReasonFile = path => {
+  let channel = open_in_bin(path);
   let lexbuf = Lexing.from_channel(channel);
   let ast = Reason_toolchain.RE.implementation(lexbuf);
   close_in(channel);
   extractMessages(ast);
 };
 
-let rec processDirectory = dir =>
-  Sys.readdir(dir)
-  |> Array.iter(filename => {
-       let path = Filename.concat(dir, filename);
+let rec processPath = path => {
+  if (! Sys.file_exists(path)) {
+    Printf.eprintf("Error: file or directory does not exist: %s\n", path);
+    exit(1);
+  };
 
-       if (Sys.is_directory(path)) {
-         processDirectory(path);
-       } else if (Filename.extension(filename) == ".re") {
-         processReasonFile(path);
-       };
-     });
+  if (Sys.is_directory(path)) {
+    Sys.readdir(path) |> Array.iter(filename => processPath(Filename.concat(path, filename)));
+  } else if (Filename.extension(path) == ".re") {
+    processReasonFile(path);
+  };
+};
 
 let outputJson = () => {
   let sortedJsonObjects =
@@ -63,13 +64,13 @@ let showVersion = () => {
 
 let args = [("-v", Arg.Unit(showVersion), "shows the program version")];
 
-let usage = "Usage: " ++ Sys.argv[0] ++ " directory ...";
+let usage = "Usage: " ++ Sys.argv[0] ++ " [path...]";
 
 Arg.parse(args, processInputFilename, usage);
 
 switch (inputFilenames^) {
 | [] => Arg.usage(args, usage)
-| filenames => filenames |> List.rev |> List.iter(processDirectory)
+| filenames =>
+  filenames |> List.rev |> List.iter(processPath);
+  outputJson();
 };
-
-outputJson();
