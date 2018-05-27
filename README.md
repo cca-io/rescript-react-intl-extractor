@@ -7,7 +7,13 @@ This assumes that you are using the [bs-react-intl] bindings for [react-intl].
 
 ## Installation
 
-macOS and Linux binaries are available for download on the [releases page].
+Binaries for macOS and Linux can be installed via npm or yarn. For global installation, run
+
+```sh
+npm install -g bs-react-intl-extractor-bin
+```
+
+Alternatively, the binaries are also available for download on the [releases page].
 
 ## Usage
 
