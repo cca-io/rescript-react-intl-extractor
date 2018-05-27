@@ -2,7 +2,12 @@
   "name": "bs-react-intl-extractor",
   "version": "0.4.0",
   "description": "Message extractor for bs-react-intl",
+  "author": "Christoph Knittel <christoph.knittel@cca.io>",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/cknitt/bs-react-intl-extractor.git"
+  },
   "esy": {
     "build": [["refmterr", "jbuilder", "build"]],
     "install": ["esy-installer"],
