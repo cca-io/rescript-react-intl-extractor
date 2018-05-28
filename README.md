@@ -1,6 +1,6 @@
 # bs-react-intl-extractor
 
-[![Build Status](https://travis-ci.org/cknitt/bs-react-intl-extractor.svg?branch=master)](https://travis-ci.org/cknitt/bs-react-intl-extractor)
+[![NPM](https://nodei.co/npm/bs-react-intl-extractor-bin.png?compact=true)](https://nodei.co/npm/bs-react-intl-extractor-bin/) [![Build Status](https://travis-ci.org/cknitt/bs-react-intl-extractor.svg?branch=master)](https://travis-ci.org/cknitt/bs-react-intl-extractor)
 
 Extracts messages for localization from [Reason] source files.
 This assumes that you are using the [bs-react-intl] bindings for [react-intl].
