@@ -1,4 +1,5 @@
 {
+  "reason.codelens.enabled": true,
   "reason.format.width": 120,
   "editor.rulers": [120],
   "editor.tabSize": 2,
