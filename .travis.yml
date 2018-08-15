@@ -1,14 +1,14 @@
 language: node_js
 node_js:
-- 8
+  - 8
 os:
-- linux
-- osx
+  - linux
+  - osx
 install:
-- npm install --global esy
-- esy install
+  - npm install --global esy@0.2.6
+  - esy install
 script:
-- esy build
-- cd tests
-- npm install
-- npm test
+  - esy build
+  - cd tests
+  - npm install
+  - npm test
