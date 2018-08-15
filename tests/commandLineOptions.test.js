@@ -19,6 +19,6 @@ describe("test", function() {
   it("shows version", function*() {
     const cliTest = new CliTest();
     const res = yield cliTest.exec("../_build/default/bin/Extract.exe -v");
-    expect(res.stdout).toEqual("0.4.0");
+    expect(res.stdout).toEqual("0.5.0");
   });
 });
