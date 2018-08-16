@@ -29,7 +29,7 @@ let processReasonFile = path => {
 };
 
 let rec processPath = path => {
-  if (! Sys.file_exists(path)) {
+  if (!Sys.file_exists(path)) {
     Printf.eprintf("Error: file or directory does not exist: %s\n", path);
     exit(1);
   };
