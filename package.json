@@ -9,8 +9,7 @@
     "url": "https://github.com/cknitt/bs-react-intl-extractor.git"
   },
   "esy": {
-    "build": [["refmterr", "jbuilder", "build"]],
-    "buildsInSource": "_build"
+    "build": [["refmterr", "dune", "build"]]
   },
   "scripts": {
     "format": "refmt --in-place -w 120 `find bin lib -name \"*.re\"`",
