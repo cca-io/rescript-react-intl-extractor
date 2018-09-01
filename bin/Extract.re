@@ -1,5 +1,3 @@
-open Migrate_parsetree;
-
 open Lib;
 
 module StringMap = Map.Make(String);

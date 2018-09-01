@@ -39,7 +39,7 @@ let extractMessagesFromRecords = (callback, records) =>
   |> List.iter(field =>
        switch (field) {
        | (
-           {txt: Lident(s)},
+           {txt: Lident(_)},
            {
              pexp_desc:
                Pexp_extension((
