@@ -18,6 +18,7 @@
   },
   "dependencies": {
     "@esy-ocaml/reason": "^3.3.3",
+    "@opam/alcotest": "0.8.3",
     "@opam/dune": "^1.1.1",
     "@opam/yojson": "^1.4.1",
     "ocaml": "~4.6.1",

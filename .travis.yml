@@ -9,6 +9,4 @@ install:
   - esy install
 script:
   - esy build
-  - cd tests
-  - npm install
-  - npm test
+  - _build/default/test/Test.exe

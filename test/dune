@@ -1,0 +1,7 @@
+(ignored_subdirs (test1 test2))
+
+(executable
+  (name Test)
+  (public_name TestBsReactIntlExtractor.exe)
+  (libraries alcotest)
+)
