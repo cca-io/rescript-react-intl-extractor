@@ -72,5 +72,5 @@ module Extract = {
 let () =
   Alcotest.run(
     "bs-react-intl-extractor",
-    [("usage", Usage.testSet), ("version", Version.testSet), ("extraact", Extract.testSet)],
+    [("usage", Usage.testSet), ("version", Version.testSet), ("extract", Extract.testSet)],
   );
