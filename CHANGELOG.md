@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.5.0 - 2018-09-15
+
+* Upgraded Reason parser to Reason 3.3.3.
+* Ported tests to Alcotest.
+* jbuilder -> dune.
+* Upgraded dependencies.
+
 ## 0.4.0 - 2018-05-25
 
 * Directly use Reason parser api instead of forking the refmt exe for each file.
