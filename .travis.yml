@@ -9,4 +9,4 @@ install:
   - esy install
 script:
   - esy build
-  - _build/default/test/Test.exe
+  - esy x Test.exe
