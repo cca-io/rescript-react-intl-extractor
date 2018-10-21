@@ -4,7 +4,10 @@ let checkRes = (params, expected) => {
 };
 
 module Usage = {
-  let usage = "Usage: _build/default/bin/Extract.exe [path...]
+  let usage =
+    "Usage: "
+    ++ CmdLine.pathToExtractExe
+    ++ " [path...]
   -v shows the program version
   -help  Display this list of options
   --help  Display this list of options

@@ -17,12 +17,12 @@
     "zip": "esy build && node scripts/createZip.js"
   },
   "dependencies": {
-    "@esy-ocaml/reason": "^3.3.3",
-    "@opam/alcotest": "0.8.3",
-    "@opam/dune": "^1.1.1",
+    "@esy-ocaml/reason": "^3.3.5",
+    "@opam/alcotest": "^0.8.4",
+    "@opam/dune": "^1.4.0",
     "@opam/yojson": "^1.4.1",
-    "ocaml": "~4.6.1",
-    "refmterr": "^3.1.7"
+    "ocaml": "~4.6.7",
+    "refmterr": "^3.1.8"
   },
   "devDependencies": {
     "@esy-ocaml/merlin": "*"

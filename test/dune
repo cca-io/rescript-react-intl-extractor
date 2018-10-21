@@ -2,6 +2,6 @@
 
 (executable
   (name Test)
-  (public_name TestBsReactIntlExtractor.exe)
+  (public_name Test.exe)
   (libraries alcotest)
 )

@@ -19,8 +19,11 @@ let getChannelContents = channel => {
   buf->contents;
 };
 
+let binDir = Sys.argv[0]->Filename.dirname;
+let pathToExtractExe = binDir->Filename.concat("Extract.exe");
+
 let run = params => {
-  let (in_, out, err) = Unix.open_process_full("_build/default/bin/Extract.exe " ++ params, [||]);
+  let (in_, out, err) = Unix.open_process_full(pathToExtractExe ++ " " ++ params, [||]);
 
   let res = (getChannelContents(in_), getChannelContents(err));
 
