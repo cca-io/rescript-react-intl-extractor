@@ -5,7 +5,7 @@ os:
   - linux
   - osx
 install:
-  - npm install --global esy@0.2.11
+  - npm install --global esy@0.3.4
   - esy install
 script:
   - esy build

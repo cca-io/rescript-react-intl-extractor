@@ -1,10 +1,9 @@
 npm-debug.log
 .merlin
 yarn-error.log
-node_modules/
+node_modules
 _build
-_esybuild
-_esyinstall
+_esy
 _release
 *.byte
 *.native
