@@ -1,5 +1,5 @@
 {
-  "hash": "63a29b833526e5ee319d7f5fe1330969",
+  "hash": "932e644771a23983bb85da553b5ae497",
   "root": "root@path:./package.json",
   "node": {
     "root@path:./package.json": {
@@ -11,22 +11,22 @@
         "opam": null
       },
       "dependencies": [
-        "@esy-ocaml/merlin@3.0.5005", "@esy-ocaml/reason@3.3.5",
+        "@esy-ocaml/merlin@3.0.5005", "@esy-ocaml/reason@3.3.7",
         "@opam/alcotest@opam:0.8.4", "@opam/dune@opam:1.4.0",
-        "@opam/yojson@opam:1.4.1", "ocaml@4.6.7", "refmterr@3.1.8"
+        "@opam/yojson@opam:1.4.1", "ocaml@4.6.7", "refmterr@3.1.9"
       ]
     },
-    "refmterr@3.1.8": {
+    "refmterr@3.1.9": {
       "record": {
         "name": "refmterr",
-        "version": "3.1.8",
+        "version": "3.1.9",
         "source":
-          "archive:https://registry.npmjs.org/refmterr/-/refmterr-3.1.8.tgz#sha1:890121b848bf609ac65e47cd00cd80064e6a95af",
+          "archive:https://registry.npmjs.org/refmterr/-/refmterr-3.1.9.tgz#sha1:03d4679c564fb1d1de28d1c0ce8b1fb934406bac",
         "files": [],
         "opam": null
       },
       "dependencies": [
-        "@esy-ocaml/reason@3.3.5", "@opam/jbuilder@opam:transition",
+        "@esy-ocaml/reason@3.3.7", "@opam/jbuilder@opam:transition",
         "@opam/re@opam:1.7.3", "ocaml@4.6.7"
       ]
     },
@@ -610,12 +610,12 @@
       },
       "dependencies": []
     },
-    "@esy-ocaml/reason@3.3.5": {
+    "@esy-ocaml/reason@3.3.7": {
       "record": {
         "name": "@esy-ocaml/reason",
-        "version": "3.3.5",
+        "version": "3.3.7",
         "source":
-          "archive:https://registry.npmjs.org/@esy-ocaml/reason/-/reason-3.3.5.tgz#sha1:be17c1c2733b67044244ae508874bb6ef6032b7e",
+          "archive:https://registry.npmjs.org/@esy-ocaml/reason/-/reason-3.3.7.tgz#sha1:4d75b8876807c4178c6fff2359962066bb69d944",
         "files": [],
         "opam": null
       },
