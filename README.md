@@ -110,7 +110,7 @@ The output (a JSON array of all extracted messages sorted by id) is written to s
 ]
 ```
 
-## How to build
+## Building and Testing
 
 Install [esy] as follows:
 
@@ -124,23 +124,13 @@ Then build the project dependencies along with the project itself:
 
     % esy build
 
-Now you can run your editor within the environment (which also includes merlin):
+Run the compiled executable:
 
-    % esy $EDITOR
-    % esy vim
+    % esy x Extract.exe
 
-After you make some changes to source code, you can re-run project's build
-using:
+Run the tests:
 
-    % esy build
-
-And test compiled executable:
-
-    % esy ./_build/default/bin/Extract.exe
-
-Shell into environment:
-
-    % esy shell
+    % esy x Test.exe
 
 [reason]: https://reasonml.github.io
 [bs-react-intl]: https://github.com/alexfedoseev/bs-react-intl
