@@ -11,13 +11,9 @@ let iterator =
     let {Message.id, defaultMessage} = message;
     switch (messages^ |> StringMap.find_opt(id)) {
     | None => messages := messages^ |> StringMap.add(id, message)
-    | Some(existingMessage)
-        when
-          duplicatesAreAllowed^ && defaultMessage == existingMessage.defaultMessage =>
+    | Some(existingMessage) when duplicatesAreAllowed^ && defaultMessage == existingMessage.defaultMessage =>
       messages := messages^ |> StringMap.add(id, message)
-    | Some(existingMessage)
-        when
-          duplicatesAreAllowed^ && defaultMessage != existingMessage.defaultMessage =>
+    | Some(existingMessage) when duplicatesAreAllowed^ && defaultMessage != existingMessage.defaultMessage =>
       Printf.eprintf("Error: duplicate message id: %s with different default messages\n", id);
       exit(3);
     | Some(_) =>
@@ -37,7 +33,7 @@ let processReasonFile = path => {
 };
 
 let rec processPath = path => {
-  if (!Sys.file_exists(path)) {
+  if (! Sys.file_exists(path)) {
     Printf.eprintf("Error: file or directory does not exist: %s\n", path);
     exit(1);
   };
@@ -70,13 +66,15 @@ let showVersion = () => {
   exit(0);
 };
 
-let allowDuplicates = () => {
-  duplicatesAreAllowed := true;
-}
+let allowDuplicates = () => duplicatesAreAllowed := true;
 
 let args = [
   ("-v", Arg.Unit(showVersion), "shows the program version"),
-  ("--allow-duplicates", Arg.Unit(allowDuplicates), "allows entities with identical `id` props if `defaultMessage` props are identical as well"),
+  (
+    "--allow-duplicates",
+    Arg.Unit(allowDuplicates),
+    "allows entities with identical `id` props if `defaultMessage` props are identical as well",
+  ),
 ];
 
 let usage = "Usage: " ++ Sys.argv[0] ++ " [path...]";
