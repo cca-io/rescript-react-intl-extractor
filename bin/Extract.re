@@ -4,7 +4,7 @@ module StringMap = Map.Make(String);
 
 let messages = ref(StringMap.empty);
 
-let dupIdsAreAllowed = ref(false);
+let duplicatesAreAllowed = ref(false);
 
 let iterator =
   ExtractionIterator.getIterator(message => {
@@ -13,11 +13,11 @@ let iterator =
     | None => messages := messages^ |> StringMap.add(id, message)
     | Some(existingMessage)
         when
-          dupIdsAreAllowed^ && defaultMessage == existingMessage.defaultMessage =>
+          duplicatesAreAllowed^ && defaultMessage == existingMessage.defaultMessage =>
       messages := messages^ |> StringMap.add(id, message)
     | Some(existingMessage)
         when
-          dupIdsAreAllowed^ && defaultMessage != existingMessage.defaultMessage =>
+          duplicatesAreAllowed^ && defaultMessage != existingMessage.defaultMessage =>
       Printf.eprintf("Error: duplicate message id: %s with different default messages\n", id);
       exit(3);
     | Some(_) =>
@@ -70,13 +70,13 @@ let showVersion = () => {
   exit(0);
 };
 
-let allowDupIds = () => {
-  dupIdsAreAllowed := true;
+let allowDuplicates = () => {
+  duplicatesAreAllowed := true;
 }
 
 let args = [
   ("-v", Arg.Unit(showVersion), "shows the program version"),
-  ("--allow-dup-ids", Arg.Unit(allowDupIds), "allows entities with identical `id` props if `defaultMessage` props are identical as well"),
+  ("--allow-duplicates", Arg.Unit(allowDuplicates), "allows entities with identical `id` props if `defaultMessage` props are identical as well"),
 ];
 
 let usage = "Usage: " ++ Sys.argv[0] ++ " [path...]";

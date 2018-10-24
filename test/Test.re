@@ -9,7 +9,7 @@ module Usage = {
     ++ CmdLine.pathToExtractExe
     ++ " [path...]
   -v shows the program version
-  --allow-dup-ids allows entities with identical `id` props if `defaultMessage` props are identical as well
+  --allow-duplicates allows entities with identical `id` props if `defaultMessage` props are identical as well
   -help  Display this list of options
   --help  Display this list of options
 ";
@@ -77,7 +77,7 @@ module Extract = {
 ]
 |};
 
-  let testExtractDup = () => checkRes("--allow-dup-ids test/test3/Test_1_1.re test/test3/Test_1_2.re", (dup, ""));
+  let testExtractDup = () => checkRes("--allow-duplicates test/test3/Test_1_1.re test/test3/Test_1_2.re", (dup, ""));
 
   let dupWithoutFlagError = {|Error: duplicate message id: test3.msg1.1|};
 
@@ -87,7 +87,7 @@ module Extract = {
 
   let testExtractDupWithDifferentDefaultMessageError = () =>
     checkRes(
-      "--allow-dup-ids test/test3/Test_1_1.re test/test3/Test_1_2.re test/test3/Test_1_3.re",
+      "--allow-duplicates test/test3/Test_1_1.re test/test3/Test_1_2.re test/test3/Test_1_3.re",
       (dupWithDifferentDefaultMessageError, ""),
     );
 
