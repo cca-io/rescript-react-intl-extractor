@@ -79,16 +79,16 @@ module Extract = {
 
   let testExtractDup = () => checkRes("--allow-duplicates test/test3/Test_1_1.re test/test3/Test_1_2.re", (dup, ""));
 
-  let dupWithoutFlagError = {|Error: duplicate message id: test3.msg1.1|};
+  let dupWithoutFlagError = "Error: duplicate message id: test3.msg1.1\n";
 
-  let testExtractDupWithoutFlagError = () => checkRes("test/test3/Test_1_1.re test/test3/Test_1_2.re", (dupWithoutFlagError, ""));
+  let testExtractDupWithoutFlagError = () => checkRes("test/test3/Test_1_1.re test/test3/Test_1_2.re", ("", dupWithoutFlagError));
 
-  let dupWithDifferentDefaultMessageError = {|Error: duplicate message id: test3.msg1.1 with different default messages|};
+  let dupWithDifferentDefaultMessageError = "Error: duplicate message id: test3.msg1.1 with different default messages\n";
 
   let testExtractDupWithDifferentDefaultMessageError = () =>
     checkRes(
       "--allow-duplicates test/test3/Test_1_1.re test/test3/Test_1_2.re test/test3/Test_1_3.re",
-      (dupWithDifferentDefaultMessageError, ""),
+      ("", dupWithDifferentDefaultMessageError),
     );
 
   let testSet = [
