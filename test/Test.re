@@ -9,6 +9,7 @@ module Usage = {
     ++ CmdLine.pathToExtractExe
     ++ " [path...]
   -v shows the program version
+  --allow-duplicates allows entities with identical `id` props if `defaultMessage` props are identical as well
   -help  Display this list of options
   --help  Display this list of options
 ";
@@ -69,7 +70,34 @@ module Extract = {
 
   let testExtractPartial = () => checkRes("test/test1/subdir/Test_1_2.re test/test2", (partial, ""));
 
-  let testSet = [("Extract full", `Quick, testExtractFull), ("Extract partial", `Quick, testExtractPartial)];
+  let dup = {|[
+  { "id": "test3.msg1.1", "defaultMessage": "This is message 1.1" },
+  { "id": "test3.msg1.2", "defaultMessage": "This is message 1.2" },
+  { "id": "test3.msg1.3", "defaultMessage": "This is message 1.3" }
+]
+|};
+
+  let testExtractDup = () => checkRes("--allow-duplicates test/test3/Test_1_1.re test/test3/Test_1_2.re", (dup, ""));
+
+  let dupWithoutFlagError = "Error: duplicate message id: test3.msg1.1\n";
+
+  let testExtractDupWithoutFlagError = () => checkRes("test/test3/Test_1_1.re test/test3/Test_1_2.re", ("", dupWithoutFlagError));
+
+  let dupWithDifferentDefaultMessageError = "Error: duplicate message id: test3.msg1.1 with different default messages\n";
+
+  let testExtractDupWithDifferentDefaultMessageError = () =>
+    checkRes(
+      "--allow-duplicates test/test3/Test_1_1.re test/test3/Test_1_2.re test/test3/Test_1_3.re",
+      ("", dupWithDifferentDefaultMessageError),
+    );
+
+  let testSet = [
+    ("Extract full", `Quick, testExtractFull),
+    ("Extract partial", `Quick, testExtractPartial),
+    ("Extract dup", `Quick, testExtractDup),
+    ("Extract dup without flag error", `Quick, testExtractDupWithoutFlagError),
+    ("Extract dup with different defaultMessage error", `Quick, testExtractDupWithDifferentDefaultMessageError),
+  ];
 };
 
 let () =
