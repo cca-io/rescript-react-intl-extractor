@@ -1,4 +1,4 @@
-(ignored_subdirs (test1 test2))
+(ignored_subdirs (test1 test2 test3))
 
 (executable
   (name Test)
