@@ -1,8 +1,5 @@
 let res = Alcotest.(pair(string, string));
 
-/* Make fast pipe available. */
-let (|.) = (a, b) => b(a);
-
 let getChannelContents = channel => {
   open Buffer;
 
