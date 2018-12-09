@@ -19,10 +19,12 @@ Alternatively, the binaries are also available for download on the [releases pag
 ## Usage
 
 ```sh
-bs-react-intl-extractor [path...]
+bs-react-intl-extractor [--allow-duplicates] [path...]
 ```
 
 where `path` is a Reason source file or a directory containing Reason source files. Multiple files/directories may be specified.
+
+The `--allow-duplicates` option allows messages with identical `id` props if the `defaultMessage` props are identical as well.
 
 Formatted messages may be defined in your source files in one of the following three ways:
 
