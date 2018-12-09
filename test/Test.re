@@ -9,7 +9,7 @@ module Usage = {
     ++ CmdLine.pathToExtractExe
     ++ " [path...]
   -v shows the program version
-  --allow-duplicates allows entities with identical `id` props if `defaultMessage` props are identical as well
+  --allow-duplicates allows messages with identical `id` props if `defaultMessage` props are identical as well
   -help  Display this list of options
   --help  Display this list of options
 ";

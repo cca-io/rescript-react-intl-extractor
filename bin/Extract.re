@@ -73,7 +73,7 @@ let args = [
   (
     "--allow-duplicates",
     Arg.Unit(allowDuplicates),
-    "allows entities with identical `id` props if `defaultMessage` props are identical as well",
+    "allows messages with identical `id` props if `defaultMessage` props are identical as well",
   ),
 ];
 
