@@ -21,7 +21,7 @@ module Usage = {
 };
 
 module Version = {
-  let version = "0.6.0";
+  let version = "0.7.0";
 
   let testVersion = () => checkRes("-v", (version ++ "\n", ""));
 
@@ -81,7 +81,8 @@ module Extract = {
 
   let dupWithoutFlagError = "Error: duplicate message id: test3.msg1.1\n";
 
-  let testExtractDupWithoutFlagError = () => checkRes("test/test3/Test_1_1.re test/test3/Test_1_2.re", ("", dupWithoutFlagError));
+  let testExtractDupWithoutFlagError = () =>
+    checkRes("test/test3/Test_1_1.re test/test3/Test_1_2.re", ("", dupWithoutFlagError));
 
   let dupWithDifferentDefaultMessageError = "Error: duplicate message id: test3.msg1.1 with different default messages\n";
 

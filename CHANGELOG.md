@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.7.0 - 2019-02-12
+
+- Upgraded Reason parser to Reason 3.4.0.
+- Upgraded dependencies.
+
 ## 0.6.0 - 2018-12-09
 
 - Upgraded Reason parser to Reason 3.3.7.
