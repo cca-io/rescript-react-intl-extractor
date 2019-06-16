@@ -13,6 +13,12 @@ const zipName = `${exeName}-${version}-${platform}.zip`;
 if (fs.existsSync(zipName)) {
   fs.unlinkSync(zipName);
 }
-fs.copyFileSync("_build/default/bin/Extract.exe", exeName);
+
+const builtExePath = child_process
+  .execSync(`esy x which Extract.exe`)
+  .toString()
+  .trim();
+
+fs.copyFileSync(builtExePath, exeName);
 child_process.execSync(`zip ${zipName} ${exeName}`);
 fs.unlinkSync(exeName);
