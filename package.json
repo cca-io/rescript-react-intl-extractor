@@ -23,13 +23,13 @@
     "zip": "esy build && node scripts/createZip.js"
   },
   "dependencies": {
-    "@esy-ocaml/reason": "^3.4.0",
-    "@opam/alcotest": "^0.8.4",
-    "@opam/dune": "^1.6.3",
+    "@esy-ocaml/reason": "^3.5.2",
+    "@opam/alcotest": "^0.8.5",
+    "@opam/dune": "*",
     "@opam/ppx_fast_pipe": "^0.0.1",
-    "@opam/yojson": "^1.5.0",
-    "ocaml": "~4.6.7",
-    "refmterr": "^3.1.10"
+    "@opam/yojson": "^1.7.0",
+    "ocaml": "~4.6.1000",
+    "refmterr": "^3.3.0"
   },
   "devDependencies": {
     "@esy-ocaml/merlin": "*"

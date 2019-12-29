@@ -4,7 +4,7 @@ let getChannelContents = channel => {
   open Buffer;
 
   let buf = create(1024);
-  try (
+  try(
     while (true) {
       buf->add_string(input_line(channel));
       buf->add_string("\n");
