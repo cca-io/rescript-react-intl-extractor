@@ -16,7 +16,7 @@ let _ =
     },
   };
 
-  let _ =
+let _ =
   [@intl]
   {
     "ignored2.2": {
