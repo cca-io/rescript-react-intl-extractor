@@ -21,7 +21,7 @@ module Usage = {
 };
 
 module Version = {
-  let version = "0.7.0";
+  let version = "0.8.0";
 
   let testVersion = () => checkRes("-v", (version ++ "\n", ""));
 
