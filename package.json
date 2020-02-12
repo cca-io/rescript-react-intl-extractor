@@ -23,9 +23,9 @@
     "zip": "esy build && node scripts/createZip.js"
   },
   "dependencies": {
-    "@esy-ocaml/reason": "^3.5.2",
+    "@esy-ocaml/reason": "*",
     "@opam/alcotest": "^0.8.5",
-    "@opam/dune": "*",
+    "@opam/dune": "1.11.4",
     "@opam/ppx_fast_pipe": "^0.0.1",
     "@opam/yojson": "^1.7.0",
     "ocaml": "~4.6.1000",
@@ -33,5 +33,8 @@
   },
   "devDependencies": {
     "@esy-ocaml/merlin": "*"
+  },
+  "resolutions": {
+    "@esy-ocaml/reason": "facebook/reason#8f71db0b88c31842d866d46a18b71a1ce1709567"
   }
 }
