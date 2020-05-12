@@ -45,12 +45,14 @@ module Extract = {
     "defaultMessage": "This is message 1.7",
     "description": "Description for message 1.7"
   },
+  { "id": "test1.msg1.8", "defaultMessage": "This is message 1.8" },
   { "id": "test1.msg2.1", "defaultMessage": "This is message 2.1" },
   {
     "id": "test1.msg2.2",
     "defaultMessage": "This is message 2.2",
     "description": "Description for message 2.2"
   },
+  { "id": "test1.msg3.1", "defaultMessage": "This is message 3.1" },
   { "id": "test2.msg1.1", "defaultMessage": "This is message 2.1.1" }
 ]
 |};

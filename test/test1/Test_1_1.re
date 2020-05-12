@@ -42,3 +42,19 @@ let _ =
       "description": "Description for message 1.7",
     },
   });
+
+module Msg = {
+  open ReactIntl;
+
+  [@intl.messages];
+
+  let msg18 = {id: "test1.msg1.8", defaultMessage: "This is message 1.8"};
+
+  let ignored1 = {idd: "test1.ignored1.1", defaultMessage: "This message is ignored"};
+};
+
+module Msg2 = {
+  open ReactIntl;
+
+  let ignored2 = {id: "test1.ignored1.2", defaultMessage: "This message is ignored"};
+};

@@ -8,30 +8,42 @@ open Longident;
 
 module StringMap = Map.Make(String);
 
-let extractMessageFromLabels = labels => {
-  let map = ref(StringMap.empty);
-  labels
-  |> List.iter(assoc =>
-       switch (assoc) {
-       | (Asttypes.Labelled(key), {pexp_desc: Pexp_constant(Pconst_string(value, _))}) =>
-         map := map^ |> StringMap.add(key, value)
-       | _ => ()
-       }
-     );
-  Message.fromStringMap(map^);
+let extractMessageFromLabels = (callback, labels) => {
+  let map =
+    labels
+    |> List.fold_left(
+         (map, assoc) =>
+           switch (assoc) {
+           | (Asttypes.Labelled(key), {pexp_desc: Pexp_constant(Pconst_string(value, _))}) =>
+             map |> StringMap.add(key, value)
+           | _ => map
+           },
+         StringMap.empty,
+       );
+
+  switch (Message.fromStringMap(map)) {
+  | Some(message) => callback(message)
+  | None => ()
+  };
 };
 
-let extractMessageFromRecord = fields => {
-  let map = ref(StringMap.empty);
-  fields
-  |> List.iter(field =>
-       switch (field) {
-       | ({txt: Lident(key)}, {pexp_desc: Pexp_constant(Pconst_string(value, _))}) =>
-         map := map^ |> StringMap.add(key, value)
-       | _ => ()
-       }
-     );
-  Message.fromStringMap(map^);
+let extractMessageFromRecord = (callback, fields) => {
+  let map =
+    fields
+    |> List.fold_left(
+         (map, field) =>
+           switch (field) {
+           | ({txt: Lident(key)}, {pexp_desc: Pexp_constant(Pconst_string(value, _))}) =>
+             map |> StringMap.add(key, value)
+           | _ => map
+           },
+         StringMap.empty,
+       );
+
+  switch (Message.fromStringMap(map)) {
+  | Some(message) => callback(message)
+  | None => ()
+  };
 };
 
 let extractMessagesFromRecords = (callback, records) =>
@@ -48,13 +60,41 @@ let extractMessagesFromRecords = (callback, records) =>
                )),
            },
          ) =>
-         switch (extractMessageFromRecord(fields)) {
-         | Some(message) => callback(message)
-         | _ => ()
-         }
+         extractMessageFromRecord(callback, fields)
        | _ => ()
        }
      );
+
+let hasIntlAttribute = (items: structure) =>
+  items
+  |> List.exists(item =>
+       switch (item) {
+       | {pstr_desc: Pstr_attribute(({txt: "intl.messages"}, _))} => true
+       | _ => false
+       }
+     );
+
+let extractMessagesFromValueBindings = (callback, valueBindings: list(value_binding)) =>
+  valueBindings
+  |> List.iter(valueBinding =>
+       switch (valueBinding) {
+       | {pvb_pat: {ppat_desc: Ppat_var(_)}, pvb_expr: {pexp_desc: Pexp_record(fields, None)}} =>
+         extractMessageFromRecord(callback, fields)
+       | _ => ()
+       }
+     );
+
+let extractMessagesFromModule = (callback, items: structure) =>
+  if (hasIntlAttribute(items)) {
+    items
+    |> List.iter(item =>
+         switch (item) {
+         | {pstr_desc: Pstr_value(Nonrecursive, valueBindings)} =>
+           extractMessagesFromValueBindings(callback, valueBindings)
+         | _ => ()
+         }
+       );
+  };
 
 let matchesFormattedMessage = ident =>
   switch (ident) {
@@ -72,15 +112,21 @@ let matchesDefineMessages = ident =>
 
 let getIterator = callback => {
   ...default_iterator,
+
+  // Match records in modules with [@intl.messages]
+  // (structure is the module body - either top level or of a submodule)
+  structure: (iterator, structure) => {
+    extractMessagesFromModule(callback, structure);
+    default_iterator.structure(iterator, structure);
+  },
+
   expr: (iterator, expr) => {
     switch (expr) {
-    /* Match (ReactIntl.)FormattedMessage.createElement */
+    // Match (ReactIntl.)FormattedMessage.createElement
     | {pexp_desc: Pexp_apply({pexp_desc: Pexp_ident({txt, _})}, labels)} when matchesFormattedMessage(txt) =>
-      switch (extractMessageFromLabels(labels)) {
-      | Some(message) => callback(message)
-      | _ => ()
-      }
-    /* Match (ReactIntl.)defineMessages */
+      extractMessageFromLabels(callback, labels)
+
+    // Match (ReactIntl.)defineMessages
     | {
         pexp_desc:
           Pexp_apply(
@@ -101,7 +147,8 @@ let getIterator = callback => {
       }
         when matchesDefineMessages(txt) =>
       extractMessagesFromRecords(callback, fields)
-    /* Match [@intl.messages] */
+
+    // Match [@intl.messages] on objects
     | {
         pexp_desc:
           Pexp_extension((
@@ -111,8 +158,10 @@ let getIterator = callback => {
         pexp_attributes: [({txt: "intl.messages"}, _)],
       } =>
       extractMessagesFromRecords(callback, fields)
+
     | _ => ()
     };
+
     default_iterator.expr(iterator, expr);
   },
 };
