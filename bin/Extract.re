@@ -22,13 +22,14 @@ let iterator =
     };
   });
 
-let extractMessages = ast => iterator.structure(iterator, Obj.magic(ast));
+let extractMessages = ast => iterator.structure(iterator, ast);
 
 let processReasonFile = path => {
   let channel = open_in_bin(path);
   let lexbuf = Lexing.from_channel(channel);
-  let ast = Reason_toolchain.RE.implementation(lexbuf);
+  let ast = Reason_toolchain.(RE.implementation(lexbuf)->To_current.copy_structure);
   close_in(channel);
+
   extractMessages(ast);
 };
 
