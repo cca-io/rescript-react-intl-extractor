@@ -26,12 +26,11 @@
     "@esy-ocaml/reason": "^3.6.0",
     "@opam/alcotest": "^0.8.5",
     "@opam/dune": "1.11.4",
-    "@opam/ppx_fast_pipe": "^0.0.1",
     "@opam/yojson": "^1.7.0",
-    "ocaml": "~4.6.1000",
+    "ocaml": "~4.09.1",
     "refmterr": "^3.3.0"
   },
   "devDependencies": {
-    "@esy-ocaml/merlin": "*"
+    "@opam/merlin": "*"
   }
 }

@@ -27,7 +27,7 @@ let extractMessages = ast => iterator.structure(iterator, ast);
 let processReasonFile = path => {
   let channel = open_in_bin(path);
   let lexbuf = Lexing.from_channel(channel);
-  let ast = Reason_toolchain.(RE.implementation(lexbuf)->To_current.copy_structure);
+  let ast = Reason_toolchain.(RE.implementation(lexbuf) |> To_current.copy_structure);
   close_in(channel);
 
   extractMessages(ast);

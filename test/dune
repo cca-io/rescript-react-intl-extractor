@@ -3,6 +3,5 @@
 (executable
   (name Test)
   (public_name Test.exe)
-  (preprocess (pps ppx_fast_pipe))
   (libraries alcotest)
 )
