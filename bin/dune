@@ -2,6 +2,5 @@
   (name Extract)
   (public_name Extract.exe)
   (flags (:standard -w -9))
-  (preprocess (pps ppx_fast_pipe))
   (libraries lib)
 )

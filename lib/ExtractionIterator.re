@@ -21,10 +21,7 @@ let extractMessageFromLabels = (callback, labels) => {
          StringMap.empty,
        );
 
-  switch (Message.fromStringMap(map)) {
-  | Some(message) => callback(message)
-  | None => ()
-  };
+  Message.fromStringMap(map) |> Option.iter(callback);
 };
 
 let extractMessageFromRecord = (callback, fields) => {
@@ -40,10 +37,7 @@ let extractMessageFromRecord = (callback, fields) => {
          StringMap.empty,
        );
 
-  switch (Message.fromStringMap(map)) {
-  | Some(message) => callback(message)
-  | None => ()
-  };
+  Message.fromStringMap(map) |> Option.iter(callback);
 };
 
 let extractMessagesFromRecords = (callback, records) =>
@@ -69,7 +63,7 @@ let hasIntlAttribute = (items: structure) =>
   items
   |> List.exists(item =>
        switch (item) {
-       | {pstr_desc: Pstr_attribute(({txt: "intl.messages"}, _))} => true
+       | {pstr_desc: Pstr_attribute({attr_name: {txt: "intl.messages"}})} => true
        | _ => false
        }
      );
@@ -155,7 +149,7 @@ let getIterator = callback => {
             {txt: "bs.obj"},
             PStr([{pstr_desc: Pstr_eval({pexp_desc: Pexp_record(fields, _)}, _), pstr_loc: _}]),
           )),
-        pexp_attributes: [({txt: "intl.messages"}, _)],
+        pexp_attributes: [{attr_name: {txt: "intl.messages"}}],
       } =>
       extractMessagesFromRecords(callback, fields)
 

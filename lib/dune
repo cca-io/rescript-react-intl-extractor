@@ -2,6 +2,5 @@
   (name lib)
   (public_name bs-react-intl-extractor)
   (flags (:standard -w -9))
-  (preprocess (pps ppx_fast_pipe))
   (libraries reason yojson unix)
 )

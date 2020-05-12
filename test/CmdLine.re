@@ -6,18 +6,18 @@ let getChannelContents = channel => {
   let buf = create(1024);
   try(
     while (true) {
-      buf->add_string(input_line(channel));
-      buf->add_string("\n");
+      add_string(buf, input_line(channel));
+      add_string(buf, "\n");
     }
   ) {
   | End_of_file => ()
   };
 
-  buf->contents;
+  contents(buf);
 };
 
-let binDir = Sys.argv[0]->Filename.dirname;
-let pathToExtractExe = binDir->Filename.concat("Extract.exe");
+let binDir = Filename.dirname(Sys.argv[0]);
+let pathToExtractExe = Filename.concat(binDir, "Extract.exe");
 
 let run = params => {
   let (in_, out, err) = Unix.open_process_full(pathToExtractExe ++ " " ++ params, [||]);
