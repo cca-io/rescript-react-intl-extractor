@@ -1,5 +1,3 @@
-module StringMap = Map.Make(String);
-
 type t = {
   id: string,
   defaultMessage: string,
@@ -18,7 +16,7 @@ let fromStringMap = map => {
   };
 };
 
-let toJson = ({id, defaultMessage, description}) =>
+let toJson = ({id, defaultMessage, description}): Yojson.Basic.t =>
   switch (description) {
   | Some(description) =>
     `Assoc([
