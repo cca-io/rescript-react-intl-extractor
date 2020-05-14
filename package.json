@@ -13,7 +13,7 @@
     "buildDev": "refmterr dune build --promote-install-files --root . --only-package #{self.name}"
   },
   "scripts": {
-    "format": "refmt --in-place -w 120 `find bin lib -name \"*.re\"`",
+    "format": "scripts/format.sh",
     "setVersion": "node scripts/setVersion.js",
     "zip": "esy build && node scripts/createZip.js"
   },
