@@ -1,6 +1,5 @@
 (executable
   (name Extract)
   (public_name Extract.exe)
-  (flags (:standard -w -9))
   (libraries lib)
 )

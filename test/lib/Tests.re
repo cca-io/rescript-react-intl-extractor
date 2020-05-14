@@ -1,78 +1,43 @@
 open TestFramework;
+open Lib;
 
-describe("Version and Usage", ({test}) => {
-  let version = "0.9.0";
+let extractAndGetJson = (~duplicatesAllowed=?, paths) => {
+  let messages = Extractor.extract(~duplicatesAllowed?, paths);
+  let jsonObj = `List(messages |> List.map(Message.toJson));
 
-  let usage =
-    "Usage: "
-    ++ CmdLine.pathToExtractExe
-    ++ " [path...]
-  -v shows the program version
-  --allow-duplicates allows messages with identical `id` props if `defaultMessage` props are identical as well
-  -help  Display this list of options
-  --help  Display this list of options
-";
-
-  test("version", ({expect}) => {
-    let (out, err) = CmdLine.run("-v");
-
-    expect.string(err).toEqual("");
-    expect.string(out).toEqual(version ++ "\n");
-  });
-
-  test("usageNoArgs", ({expect}) => {
-    let (out, err) = CmdLine.run("");
-
-    expect.string(err).toEqual(usage);
-    expect.string(out).toEqual("");
-  });
-
-  test("usageHelp", ({expect}) => {
-    let (out, err) = CmdLine.run("-help");
-
-    expect.string(err).toEqual("");
-    expect.string(out).toEqual(usage);
-  });
-});
+  Yojson.Basic.pretty_to_string(jsonObj);
+};
 
 describe("Extract", ({test}) => {
   test("full", ({expect}) => {
-    let (out, err) = CmdLine.run("testData/test1 testData/test2");
-
-    expect.string(err).toEqual("");
-    expect.string(out).toMatchSnapshot();
+    let json = extractAndGetJson(["testData/test1", "testData/test2"]);
+    expect.string(json).toMatchSnapshot();
   });
 
   test("partial", ({expect}) => {
-    let (out, err) = CmdLine.run("testData/test1/subdir/Test_1_2.re testData/test2");
-
-    expect.string(err).toEqual("");
-    expect.string(out).toMatchSnapshot();
+    let json = extractAndGetJson(["testData/test1/subdir/Test_1_2.re", "testData/test2"]);
+    expect.string(json).toMatchSnapshot();
   });
 });
 
 describe("Duplicates", ({test}) => {
-  test("allowOk", ({expect}) => {
-    let (out, err) = CmdLine.run("--allow-duplicates testData/test3/Test_3_1.re testData/test3/Test_3_2.re");
-
-    expect.string(err).toEqual("");
-    expect.string(out).toMatchSnapshot();
+  test("allowedOk", ({expect}) => {
+    let json =
+      extractAndGetJson(~duplicatesAllowed=true, ["testData/test3/Test_3_1.re", "testData/test3/Test_3_2.re"]);
+    expect.string(json).toMatchSnapshot();
   });
 
-  test("allowNok", ({expect}) => {
-    let (out, err) =
-      CmdLine.run(
-        "--allow-duplicates testData/test3/Test_3_1.re testData/test3/Test_3_2.re testData/test3/Test_3_3.re",
-      );
+  test("allowedNok", ({expect}) => {
+    let extract = () =>
+      extractAndGetJson(~duplicatesAllowed=true, ["testData/test3/Test_3_1.re", "testData/test3/Test_3_3.re"]);
 
-    expect.string(err).toEqual("Error: duplicate message id: test3.msg1.1 with different default messages\n");
-    expect.string(out).toEqual("");
+    expect.fn(extract).toThrowException(Extractor.DefaultMessageNotMatching("test3.msg1.1"));
   });
 
   test("notAllowed", ({expect}) => {
-    let (out, err) = CmdLine.run("testData/test3/Test_3_1.re testData/test3/Test_3_2.re");
+    let extract = () =>
+      extractAndGetJson(~duplicatesAllowed=false, ["testData/test3/Test_3_1.re", "testData/test3/Test_3_3.re"]);
 
-    expect.string(err).toEqual("Error: duplicate message id: test3.msg1.1\n");
-    expect.string(out).toEqual("");
+    expect.fn(extract).toThrowException(Extractor.DuplicateMessageId("test3.msg1.1"));
   });
 });

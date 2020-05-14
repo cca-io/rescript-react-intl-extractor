@@ -6,8 +6,6 @@ open Parsetree;
 
 open Longident;
 
-module StringMap = Map.Make(String);
-
 let extractMessageFromLabels = (callback, labels) => {
   let map =
     labels

@@ -3,7 +3,6 @@
    ; the linkall flag ensures that all of our tests are compiled and the
    ; -g flag emits debugging information
    (ocamlopt_flags -linkall -g)
-   (flags (:standard -w -9))
    (libraries rely.lib lib)
    (modules (:standard \ RunTests))
 )

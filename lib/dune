@@ -1,6 +1,5 @@
 (library
   (name lib)
   (public_name bs-react-intl-extractor)
-  (flags (:standard -w -9))
   (libraries reason yojson unix)
 )
