@@ -132,7 +132,7 @@ Run the compiled executable:
 
 Run the tests:
 
-    % esy x Test.exe
+    % esy test
 
 [reason]: https://reasonml.github.io
 [bs-react-intl]: https://github.com/alexfedoseev/bs-react-intl

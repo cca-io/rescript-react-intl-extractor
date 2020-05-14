@@ -13,19 +13,20 @@
     "buildDev": "refmterr dune build --promote-install-files --root . --only-package #{self.name}"
   },
   "scripts": {
+    "test": "esy x RunTests.exe",
     "format": "scripts/format.sh",
     "setVersion": "node scripts/setVersion.js",
     "zip": "esy build && node scripts/createZip.js"
   },
   "dependencies": {
     "@esy-ocaml/reason": "^3.6.0",
-    "@opam/alcotest": "^0.8.5",
     "@opam/dune": "^2.5.1",
     "@opam/yojson": "^1.7.0",
-    "ocaml": "~4.08.1",
-    "refmterr": "^3.3.0"
+    "ocaml": "~4.08.1"
   },
   "devDependencies": {
-    "@opam/merlin": "*"
+    "@opam/merlin": "*",
+    "@reason-native/rely": "^3.2.1",
+    "refmterr": "*"
   }
 }

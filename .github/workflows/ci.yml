@@ -56,7 +56,7 @@ jobs:
       - name: Build
         run: esy build
       - name: Test
-        run: esy x Test.exe
+        run: esy test
       - name: Get esy binary path
         id: esy_binary_path
         shell: bash
