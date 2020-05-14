@@ -1,7 +1,18 @@
-(ignored_subdirs (test1 test2 test3))
+(library
+   (name libTest)
+   ; the linkall flag ensures that all of our tests are compiled and the
+   ; -g flag emits debugging information
+   (ocamlopt_flags -linkall -g)
+   (flags (:standard -w -9))
+   (libraries rely.lib lib)
+   (modules (:standard \ RunTests))
+)
 
 (executable
-  (name Test)
-  (public_name Test.exe)
-  (libraries alcotest)
+  (name RunTests)
+  (public_name RunTests.exe)
+  (libraries rely.lib libTest)
+  (modules RunTests)
 )
+
+(include_subdirs unqualified)

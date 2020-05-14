@@ -1,5 +1,3 @@
-let res = Alcotest.(pair(string, string));
-
 let getChannelContents = channel => {
   open Buffer;
 
