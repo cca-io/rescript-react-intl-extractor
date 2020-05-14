@@ -1,5 +1,4 @@
 (library
   (name lib)
-  (public_name bs-react-intl-extractor)
   (libraries reason yojson unix)
 )
