@@ -18,47 +18,47 @@ jobs:
         os: [ubuntu-latest, macOS-latest, windows-latest]
 
     steps:
-      - uses: actions/checkout@v1
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node-version }}
+      - name: Checkout
+        uses: actions/checkout@v2
+
       - name: Install esy
         run: npm i -g esy@0.6.4
-      - name: Get esy store path
-        id: esy_cache_path
-        shell: bash
-        run: |
-          # COMPUTE THE ESY INSTALL CACHE LOCATION AHEAD OF TIME
-          if [ "${{ matrix.os }}" == "windows-latest" ]; then
-            THE_ESY__CACHE_INSTALL_PATH=$HOME/.esy/3_/i
-            THE_ESY__CACHE_INSTALL_PATH=$( cygpath --mixed --absolute "$THE_ESY__CACHE_INSTALL_PATH")
-          else
-            DESIRED_LEN="86"
-            HOME_ESY3="$HOME/.esy/3"
-            HOME_ESY3_LEN=${#HOME_ESY3}
-            NUM_UNDERS=$(echo "$(($DESIRED_LEN-$HOME_ESY3_LEN))")
-            UNDERS=$(printf "%-${NUM_UNDERS}s" "_")
-            UNDERS="${UNDERS// /_}"
-            THE_ESY__CACHE_INSTALL_PATH=${HOME_ESY3}${UNDERS}/i  
-          fi
-          echo "THE_ESY__CACHE_INSTALL_PATH: $THE_ESY__CACHE_INSTALL_PATH"
-          echo "##[set-output name=path;]$THE_ESY__CACHE_INSTALL_PATH"
-      - name: Restore esy cache
+
+      - name: Restore esy install cache
         uses: actions/cache@v1
         with:
-          path: ${{ steps.esy_cache_path.outputs.path }}
-          key: v1-esy-${{ matrix.os }}-${{ hashFiles('**/index.json') }}
-          restore-keys: |
-            v1-esy-${{ matrix.os }}-
+          path: ~/.esy/source
+          key: source-${{ hashFiles('**/index.json') }}
+
       - name: esy install
         run: esy install
+
+      - name: Get esy cache folder
+        id: print_esy_cache
+        run: node .github/workflows/print_esy_cache.js
+
+      - name: Restore esy build cache
+        uses: actions/cache@v1
+        with:
+          path: ${{ steps.print_esy_cache.outputs.esy_cache }}
+          key: build-${{ matrix.os }}-${{ hashFiles('**/index.json') }}
+          restore-keys: build-${{ matrix.os }}-
+
       - name: Build
-        run: esy build
+        run: |
+          esy build
+          # Cleanup build cache in case dependencies have changed
+          esy cleanup .
+
       - name: Test
         run: esy test
-      - name: Get esy binary path
-        id: esy_binary_path
+
+      - name: Get binary path
+        id: print_binary_path
         shell: bash
         run: |
           # from https://stackoverflow.com/a/24848739/617787
@@ -68,9 +68,10 @@ jobs:
           ESY__BINARY_PATH=${b}${d#$s/}/Extract.exe
           echo "ESY__BINARY_PATH: $ESY__BINARY_PATH"
           echo "##[set-output name=path;]$ESY__BINARY_PATH"
+
       - name: (only on release) Upload artifacts ${{ matrix.os }}
         if: github.event_name != 'pull_request'
-        uses: actions/upload-artifact@master
+        uses: actions/upload-artifact@v2
         with:
           name: ${{ matrix.os }}
-          path: ${{ steps.esy_binary_path.outputs.path }}
+          path: ${{ steps.print_binary_path.outputs.path }}
