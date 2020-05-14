@@ -27,7 +27,7 @@
     "@opam/alcotest": "^0.8.5",
     "@opam/dune": "1.11.4",
     "@opam/yojson": "^1.7.0",
-    "ocaml": "~4.09.1",
+    "ocaml": "~4.08.1",
     "refmterr": "^3.3.0"
   },
   "devDependencies": {
