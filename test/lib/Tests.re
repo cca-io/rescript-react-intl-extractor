@@ -41,3 +41,15 @@ describe("Duplicates", ({test}) => {
     expect.fn(extract).toThrowException(Extractor.DuplicateMessageId("test3.msg1.1"));
   });
 });
+
+describe("Path not found", ({test}) => {
+  test("dirNotFound", ({expect}) => {
+    let extract = () => extractAndGetJson(["someDir"]);
+    expect.fn(extract).toThrowException(Extractor.PathNotFound("someDir"));
+  });
+
+  test("fileNotFound", ({expect}) => {
+    let extract = () => extractAndGetJson(["testData/test1/SomeFile.re"]);
+    expect.fn(extract).toThrowException(Extractor.PathNotFound("testData/test1/SomeFile.re"));
+  });
+});
