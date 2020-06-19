@@ -26,7 +26,30 @@ where `path` is a Reason source file or a directory containing Reason source fil
 
 The `--allow-duplicates` option allows messages with identical `id` props if the `defaultMessage` props are identical as well.
 
-Formatted messages may be defined in your source files in one of the following three ways:
+## Output
+
+The output (a JSON array of all extracted messages sorted by id) is written to stdout. It will look like this:
+
+```json
+[
+  {
+    "id": "message.hello",
+    "defaultMessage": "Hello"
+  },
+  {
+    "id": "message.world",
+    "defaultMessage": "World"
+  },
+  {
+    "id": "some.message.id",
+    "defaultMessage": "Some message"
+  }
+]
+```
+
+## Message Definition (bs-react-intl 2.x)
+
+Formatted messages may be defined in your source files in one of the following ways:
 
 1.  inline in `FormattedMessage`:
 
@@ -41,6 +64,25 @@ open ReactIntl;
 ...
 <FormattedMessage id="some.message.id" defaultMessage="Some message" />
 ```
+
+2.  within a module with the `[@intl.messages]` attribute:
+
+```reason
+open ReactIntl;
+
+module Msg = {
+  [@intl.messages];
+
+  let hello = {id: "message.hello", defaultMessage: "Hello"};
+  let world = {id: "message.world", defaultMessage: "World"};
+};
+```
+
+## Message Definition (bs-react-intl 1.x)
+
+Formatted messages may be defined in your source files in one of the following ways:
+
+1.  inline in `FormattedMessage` (see above)
 
 2.  using `ReactIntl.defineMessages`:
 
@@ -93,30 +135,11 @@ let messages =
   };
 ```
 
-The output (a JSON array of all extracted messages sorted by id) is written to stdout. It will look like this:
-
-```json
-[
-  {
-    "id": "message.hello",
-    "defaultMessage": "Hello"
-  },
-  {
-    "id": "message.world",
-    "defaultMessage": "World"
-  },
-  {
-    "id": "some.message.id",
-    "defaultMessage": "Some message"
-  }
-]
-```
-
 ## Building and Testing
 
 Install [esy] as follows:
 
-    % npm install -g esy@latest
+    % npm install -g esy
 
 Then you can install the project dependencies using:
 
