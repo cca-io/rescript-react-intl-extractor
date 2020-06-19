@@ -1,11 +1,19 @@
 # Changelog
 
+## 0.9.0 - 2020-06-19
+
+- Upgraded Reason parser to Reason 3.6.0 (release).
+- OCaml 4.08, Dune 2.
+- Migrated tests to [Rely](https://reason-native.com/docs/rely/).
+- Moved CI to GitHub Actions.
+- macOS, Linux and Windows binaries built by CI.
+
 ## 0.8.0 - 2020-02-12
 
 - Upgraded Reason parser to Reason 3.6.0 (8f71db0)
 - Upgraded dependencies.
 
-## 0.8.0 - 2019-02-12
+## 0.7.0 - 2019-02-12
 
 - Upgraded Reason parser to Reason 3.4.0.
 - Upgraded dependencies.
