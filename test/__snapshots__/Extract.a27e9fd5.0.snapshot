@@ -16,6 +16,11 @@ Extract › full
     \"description\": \"Description for message 1.7\"
   },
   { \"id\": \"test1.msg1.8\", \"defaultMessage\": \"This is message 1.8\" },
+  {
+    \"id\": \"test1.msg1.9\",
+    \"defaultMessage\": \"This is message 1.9\",
+    \"description\": \"Description for message 1.9\"
+  },
   { \"id\": \"test1.msg2.1\", \"defaultMessage\": \"This is message 2.1\" },
   {
     \"id\": \"test1.msg2.2\",

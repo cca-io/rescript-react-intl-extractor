@@ -6,10 +6,10 @@ type t = {
 
 let compare = (a, b) => compare(a.id, b.id);
 
-let fromStringMap = map => {
+let fromStringMap = (~description=?, map) => {
   let id = map |> StringMap.find_opt("id");
   let defaultMessage = map |> StringMap.find_opt("defaultMessage");
-  let description = map |> StringMap.find_opt("description");
+  let description = description |> Option.is_none ? map |> StringMap.find_opt("description") : description;
   switch (id, defaultMessage) {
   | (Some(id), Some(defaultMessage)) => Some({id, defaultMessage, description})
   | _ => None

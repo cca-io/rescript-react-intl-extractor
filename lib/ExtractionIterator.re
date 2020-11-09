@@ -22,7 +22,7 @@ let extractMessageFromLabels = (callback, labels) => {
   Message.fromStringMap(map) |> Option.iter(callback);
 };
 
-let extractMessageFromRecord = (callback, fields) => {
+let extractMessageFromRecord = (~description=?, callback, fields) => {
   let map =
     fields
     |> List.fold_left(
@@ -35,7 +35,7 @@ let extractMessageFromRecord = (callback, fields) => {
          StringMap.empty,
        );
 
-  Message.fromStringMap(map) |> Option.iter(callback);
+  Message.fromStringMap(~description?, map) |> Option.iter(callback);
 };
 
 let extractMessagesFromRecords = (callback, records) =>
@@ -70,6 +70,26 @@ let extractMessagesFromValueBindings = (callback, valueBindings: list(value_bind
   valueBindings
   |> List.iter(valueBinding =>
        switch (valueBinding) {
+       // Match with [@intl.description "i am description"]
+       | {
+           pvb_pat: {ppat_desc: Ppat_var(_)},
+           pvb_expr: {
+             pexp_desc: Pexp_record(fields, None),
+             pexp_attributes: [
+               {
+                 attr_name: {txt: "intl.description"},
+                 attr_payload:
+                   PStr([
+                     {
+                       pstr_desc: Pstr_eval({pexp_desc: Pexp_constant(Pconst_string(description, _))}, _),
+                       pstr_loc: _,
+                     },
+                   ]),
+               },
+             ],
+           },
+         } =>
+         extractMessageFromRecord(~description, callback, fields)
        | {pvb_pat: {ppat_desc: Ppat_var(_)}, pvb_expr: {pexp_desc: Pexp_record(fields, None)}} =>
          extractMessageFromRecord(callback, fields)
        | _ => ()
