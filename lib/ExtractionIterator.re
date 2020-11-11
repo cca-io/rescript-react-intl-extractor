@@ -70,7 +70,7 @@ let extractMessagesFromValueBindings = (callback, valueBindings: list(value_bind
   valueBindings
   |> List.iter(valueBinding =>
        switch (valueBinding) {
-       // Match with [@intl.description "i am description"]
+       // Match with [@intl.description "i am description"] let foo = { ... };
        | {
            pvb_pat: {ppat_desc: Ppat_var(_)},
            pvb_expr: {
