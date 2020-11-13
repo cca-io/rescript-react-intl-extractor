@@ -78,6 +78,11 @@ module Msg = {
 };
 ```
 
+You also can pass descriptions to the records with:
+```reason
+let foo = [@intl.description "Hello description"] {id: "message.hello", defaultMessage: "Hello"};
+```
+
 ## Message Definition (bs-react-intl 1.x)
 
 Formatted messages may be defined in your source files in one of the following ways:
