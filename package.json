@@ -1,6 +1,6 @@
 {
   "name": "bs-react-intl-extractor",
-  "version": "0.9.0",
+  "version": "0.9.1",
   "description": "Message extractor for bs-react-intl",
   "author": "Christoph Knittel <christoph.knittel@cca.io>",
   "license": "MIT",

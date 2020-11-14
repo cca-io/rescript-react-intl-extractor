@@ -58,3 +58,11 @@ module Msg2 = {
 
   let ignored2 = {id: "test1.ignored1.2", defaultMessage: "This message is ignored"};
 };
+
+module Msg3 = {
+  open ReactIntl;
+
+  [@intl.messages];
+
+  let msg19 = [@intl.description "Description for message 1.9"] {id: "test1.msg1.9", defaultMessage: "This is message 1.9"};
+};
