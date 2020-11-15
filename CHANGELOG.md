@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.9.1 - 2020-11-15
+
+- Added optional description support for message records via `@intl.description` attribute.
+
 ## 0.9.0 - 2020-06-19
 
 - Upgraded Reason parser to Reason 3.6.0 (release).
