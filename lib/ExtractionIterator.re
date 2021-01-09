@@ -61,7 +61,7 @@ let hasIntlAttribute = (items: structure) =>
   items
   |> List.exists(item =>
        switch (item) {
-       | {pstr_desc: Pstr_attribute({attr_name: {txt: "intl.messages"}})} => true
+       | {pstr_desc: Pstr_attribute(({txt: "intl.messages"}, _))} => true
        | _ => false
        }
      );
@@ -76,16 +76,15 @@ let extractMessagesFromValueBindings = (callback, valueBindings: list(value_bind
            pvb_expr: {
              pexp_desc: Pexp_record(fields, None),
              pexp_attributes: [
-               {
-                 attr_name: {txt: "intl.description"},
-                 attr_payload:
-                   PStr([
-                     {
-                       pstr_desc: Pstr_eval({pexp_desc: Pexp_constant(Pconst_string(description, _))}, _),
-                       pstr_loc: _,
-                     },
-                   ]),
-               },
+               (
+                 {txt: "intl.description"},
+                 PStr([
+                   {
+                     pstr_desc: Pstr_eval({pexp_desc: Pexp_constant(Pconst_string(description, _))}, _),
+                     pstr_loc: _,
+                   },
+                 ]),
+               ),
              ],
            },
          } =>
@@ -167,7 +166,7 @@ let getIterator = callback => {
             {txt: "bs.obj"},
             PStr([{pstr_desc: Pstr_eval({pexp_desc: Pexp_record(fields, _)}, _), pstr_loc: _}]),
           )),
-        pexp_attributes: [{attr_name: {txt: "intl.messages"}}],
+        pexp_attributes: [({txt: "intl.messages"}, _)],
       } =>
       extractMessagesFromRecords(callback, fields)
 

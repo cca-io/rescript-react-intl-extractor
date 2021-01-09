@@ -22,7 +22,7 @@
     "@esy-ocaml/reason": "^3.6.0",
     "@opam/dune": "^2.5.1",
     "@opam/yojson": "^1.7.0",
-    "ocaml": "~4.08.1"
+    "ocaml": "~4.06.1"
   },
   "devDependencies": {
     "@opam/merlin": "*",
