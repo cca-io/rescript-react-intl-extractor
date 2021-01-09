@@ -1,14 +1,14 @@
 # bs-react-intl-extractor
 
 Extracts messages for localization from [Reason] source files.
-This assumes that you are using the [bs-react-intl] bindings for [react-intl].
+This assumes that you are using the [bs-react-intl] 2.x bindings for [react-intl].
 
 [![NPM](https://nodei.co/npm/bs-react-intl-extractor-bin.png?compact=true)](https://nodei.co/npm/bs-react-intl-extractor-bin/)  
 ![Build Status](https://github.com/cknitt/bs-react-intl-extractor/workflows/CI/badge.svg)
 
 ## Installation
 
-Binaries for macOS and Linux can be installed via npm or yarn. For global installation, run
+Binaries for macOS, Linux and Windows can be installed via npm or yarn. For global installation, run
 
 ```sh
 npm install -g bs-react-intl-extractor-bin
@@ -47,7 +47,7 @@ The output (a JSON array of all extracted messages sorted by id) is written to s
 ]
 ```
 
-## Message Definition (bs-react-intl 2.x)
+## Message Definition
 
 Formatted messages may be defined in your source files in one of the following ways:
 
@@ -79,65 +79,9 @@ module Msg = {
 ```
 
 You also can pass descriptions to the records with:
+
 ```reason
 let foo = [@intl.description "Hello description"] {id: "message.hello", defaultMessage: "Hello"};
-```
-
-## Message Definition (bs-react-intl 1.x)
-
-Formatted messages may be defined in your source files in one of the following ways:
-
-1.  inline in `FormattedMessage` (see above)
-
-2.  using `ReactIntl.defineMessages`:
-
-```reason
-let messages =
-  ReactIntl.defineMessages(. {
-    "hello": {
-      "id": "message.hello",
-      "defaultMessage": "Hello",
-    },
-    "world": {
-      "id": "message.world",
-      "defaultMessage": "World",
-    },
-  });
-```
-
-or
-
-```reason
-open ReactIntl;
-...
-let messages =
-  defineMessages(. {
-    "hello": {
-      "id": "message.hello",
-      "defaultMessage": "Hello",
-    },
-    "world": {
-      "id": "message.world",
-      "defaultMessage": "World",
-    },
-  });
-```
-
-3.  using the attribute `[@intl.messages]`:
-
-```reason
-let messages =
-  [@intl.messages]
-  {
-    "hello": {
-      "id": "message.hello",
-      "defaultMessage": "Hello",
-    },
-    "world": {
-      "id": "message.world",
-      "defaultMessage": "World",
-    },
-  };
 ```
 
 ## Building and Testing

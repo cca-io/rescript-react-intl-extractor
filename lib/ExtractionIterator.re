@@ -38,25 +38,6 @@ let extractMessageFromRecord = (~description=?, callback, fields) => {
   Message.fromStringMap(~description?, map) |> Option.iter(callback);
 };
 
-let extractMessagesFromRecords = (callback, records) =>
-  records
-  |> List.iter(field =>
-       switch (field) {
-       | (
-           {txt: Lident(_)},
-           {
-             pexp_desc:
-               Pexp_extension((
-                 {txt: "bs.obj"},
-                 PStr([{pstr_desc: Pstr_eval({pexp_desc: Pexp_record(fields, _)}, _), pstr_loc: _}]),
-               )),
-           },
-         ) =>
-         extractMessageFromRecord(callback, fields)
-       | _ => ()
-       }
-     );
-
 let hasIntlAttribute = (items: structure) =>
   items
   |> List.exists(item =>
@@ -114,13 +95,6 @@ let matchesFormattedMessage = ident =>
   | _ => false
   };
 
-let matchesDefineMessages = ident =>
-  switch (ident) {
-  | Ldot(Lident("ReactIntl"), "defineMessages")
-  | Lident("defineMessages") => true
-  | _ => false
-  };
-
 let getIterator = callback => {
   ...default_iterator,
 
@@ -136,39 +110,6 @@ let getIterator = callback => {
     // Match (ReactIntl.)FormattedMessage.createElement
     | {pexp_desc: Pexp_apply({pexp_desc: Pexp_ident({txt, _})}, labels)} when matchesFormattedMessage(txt) =>
       extractMessageFromLabels(callback, labels)
-
-    // Match (ReactIntl.)defineMessages
-    | {
-        pexp_desc:
-          Pexp_apply(
-            {pexp_desc: Pexp_ident({txt, _})},
-            [
-              (
-                Asttypes.Nolabel,
-                {
-                  pexp_desc:
-                    Pexp_extension((
-                      {txt: "bs.obj"},
-                      PStr([{pstr_desc: Pstr_eval({pexp_desc: Pexp_record(fields, _)}, _), pstr_loc: _}]),
-                    )),
-                },
-              ),
-            ],
-          ),
-      }
-        when matchesDefineMessages(txt) =>
-      extractMessagesFromRecords(callback, fields)
-
-    // Match [@intl.messages] on objects
-    | {
-        pexp_desc:
-          Pexp_extension((
-            {txt: "bs.obj"},
-            PStr([{pstr_desc: Pstr_eval({pexp_desc: Pexp_record(fields, _)}, _), pstr_loc: _}]),
-          )),
-        pexp_attributes: [({txt: "intl.messages"}, _)],
-      } =>
-      extractMessagesFromRecords(callback, fields)
 
     | _ => ()
     };
