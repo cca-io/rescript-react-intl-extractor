@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.10.0 - 2021-01-10
+
+- Added ReScript support (ReScript 7cc70c9). 🎉
+- Removed support for bs-react-intl 1.x style message definition.
+- Downgraded to OCaml 4.06 to be able to build ReScript parser.
+
 ## 0.9.1 - 2020-11-15
 
 - Added optional description support for message records via `@intl.description` attribute.
