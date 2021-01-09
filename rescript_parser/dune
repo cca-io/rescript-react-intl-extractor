@@ -1,0 +1,8 @@
+(copy_files ./syntax/src/*.ml)
+(copy_files ./syntax/src/*.mli)
+
+(library
+  (name rescript_parser)
+  (wrapped false)
+  (libraries compiler-libs)
+)

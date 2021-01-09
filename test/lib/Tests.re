@@ -53,3 +53,10 @@ describe("Path not found", ({test}) => {
     expect.fn(extract).toThrowException(Extractor.PathNotFound("testData/test1/SomeFile.re"));
   });
 });
+
+describe("ReScript", ({test}) => {
+  test("full", ({expect}) => {
+    let json = extractAndGetJson(["testData/test4"]);
+    expect.string(json).toMatchSnapshot();
+  })
+});
