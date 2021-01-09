@@ -22,11 +22,15 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node-version }}
-      - name: Checkout
+
+      - name: Checkout repository
         uses: actions/checkout@v2
 
+      - name: Checkout submodules
+        run: git submodule update --init --recursive
+
       - name: Install esy
-        run: npm i -g esy@0.6.4
+        run: npm i -g esy@0.6.7
 
       - name: Restore esy install cache
         uses: actions/cache@v1

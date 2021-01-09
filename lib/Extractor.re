@@ -33,6 +33,17 @@ let extract = (~duplicatesAllowed=false, paths) => {
     extractMessages(ast);
   };
 
+  let processReScriptFile = path => {
+    let channel = open_in_bin(path);
+    let src = really_input_string(channel, in_channel_length(channel));
+    close_in(channel);
+
+    let parser = Res_parser.(make(~mode=Default, src, path));
+    let ast = Res_core.parseImplementation(parser);
+
+    extractMessages(ast);
+  };
+
   let rec processPath = path => {
     if (!Sys.file_exists(path)) {
       raise(PathNotFound(path));
@@ -40,8 +51,12 @@ let extract = (~duplicatesAllowed=false, paths) => {
 
     if (Sys.is_directory(path)) {
       Sys.readdir(path) |> Array.iter(filename => processPath(Filename.concat(path, filename)));
-    } else if (Filename.extension(path) == ".re") {
-      processReasonFile(path);
+    } else {
+      switch (Filename.extension(path)) {
+      | ".re" => processReasonFile(path)
+      | ".res" => processReScriptFile(path)
+      | _ => ()
+      };
     };
   };
 
