@@ -10,12 +10,12 @@ let extractAndGetJson = (~duplicatesAllowed=?, paths) => {
 
 describe("Extract", ({test}) => {
   test("full", ({expect}) => {
-    let json = extractAndGetJson(["testData/test1", "testData/test2"]);
+    let json = extractAndGetJson(["testData/test1"]);
     expect.string(json).toMatchSnapshot();
   });
 
   test("partial", ({expect}) => {
-    let json = extractAndGetJson(["testData/test1/subdir/Test_1_2.re", "testData/test2"]);
+    let json = extractAndGetJson(["testData/test1/subdir/Test_1_3.re"]);
     expect.string(json).toMatchSnapshot();
   });
 });

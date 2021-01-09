@@ -22,27 +22,6 @@ let theseShouldBeIgnored = () =>
     <FormattedMessage id="ignored1.2" description="This is a description" />
   </div>;
 
-let _ =
-  ReactIntl.defineMessages({
-    "test1.msg1.6": {
-      "id": "test1.msg1.6",
-      "defaultMessage": "This is message 1.6",
-    },
-    "ignored1.3": {
-      "idd": "test1.msg1.8", /* This will not be extracted. */
-      "defaultMessage": "This is message 1.8",
-    },
-  });
-
-let _ =
-  defineMessages({
-    "test1.msg1.7": {
-      "id": "test1.msg1.7",
-      "defaultMessage": "This is message 1.7",
-      "description": "Description for message 1.7",
-    },
-  });
-
 module Msg = {
   open ReactIntl;
 
