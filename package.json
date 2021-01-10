@@ -15,8 +15,7 @@
   "scripts": {
     "test": "esy x RunTests.exe",
     "format": "scripts/format.sh",
-    "setVersion": "node scripts/setVersion.js",
-    "zip": "esy build && node scripts/createZip.js"
+    "setVersion": "node scripts/setVersion.js"
   },
   "dependencies": {
     "@esy-ocaml/reason": "^3.6.0",
