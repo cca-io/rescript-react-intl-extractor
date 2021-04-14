@@ -45,3 +45,11 @@ module Msg3 = {
 
   let msg19 = [@intl.description "Description for message 1.9"] {id: "test1.msg1.9", defaultMessage: "This is message 1.9"};
 };
+
+module Msg5 = {
+  open ReactIntl;
+
+  [@intl.messages];
+
+  let msg50 = [@intl.description "Description for message 59"] {defaultMessage: "Optional ID !"};
+};
