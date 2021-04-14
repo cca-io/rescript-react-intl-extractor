@@ -1,4 +1,5 @@
 let renderMessages1 = () => <ReactIntl.FormattedMessage id="test1.msg1.1" defaultMessage="This is message 1.1" />;
+let renderMessages11 = () => <ReactIntl.FormattedMessage defaultMessage="No id but should be extracted" />;
 
 let renderMessages2 = () =>
   <div>
