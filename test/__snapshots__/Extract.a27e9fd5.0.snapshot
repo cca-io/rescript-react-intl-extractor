@@ -1,5 +1,7 @@
 Extract › full
 [
+  { \"id\": \"_45f194e9\", \"defaultMessage\": \"No id but should be extracted\" },
+  { \"id\": \"_e9c344cd\", \"defaultMessage\": \"This message is ignored\" },
   { \"id\": \"test1.msg1.1\", \"defaultMessage\": \"This is message 1.1\" },
   { \"id\": \"test1.msg1.2\", \"defaultMessage\": \"This is message 1.2\" },
   {

@@ -1,5 +1,6 @@
 ReScript › full
 [
+  { \"id\": \"_e9c344cd\", \"defaultMessage\": \"This message is ignored\" },
   { \"id\": \"test4.msg1.1\", \"defaultMessage\": \"This is message 1.1\" },
   { \"id\": \"test4.msg1.2\", \"defaultMessage\": \"This is message 1.2\" },
   {
