@@ -1,6 +1,6 @@
 {
   "name": "rescript-react-intl-extractor",
-  "version": "0.10.0",
+  "version": "0.11.0",
   "description": "Message extractor for rescript-react-intl",
   "author": "Christoph Knittel <christoph.knittel@cca.io>",
   "license": "MIT",
