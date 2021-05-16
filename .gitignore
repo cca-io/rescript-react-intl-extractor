@@ -7,5 +7,5 @@ _esy
 _release
 *.byte
 *.native
-bs-react-intl-extractor.install
+rescript-react-intl-extractor.install
 .DS_Store
