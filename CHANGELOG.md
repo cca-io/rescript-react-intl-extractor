@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.11.0 - 2021-05-17
+
+- Repo renamed to `rescript-react-intl-extractor` and moved to the cca-io organization.
+- NPM package renamed to `rescript-react-intl-extractor-bin`.
+- Updated ReScript parser version to bd995f (ReScript 9.1.2).
+
 ## 0.10.0 - 2021-01-10
 
 - Added ReScript support (ReScript 7cc70c9). 🎉
