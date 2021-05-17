@@ -1,1 +1,1 @@
-Docker image for running esy and building bs-react-intl-extractor on Linux.
+Docker image for running esy and building rescript-react-intl-extractor on Linux.

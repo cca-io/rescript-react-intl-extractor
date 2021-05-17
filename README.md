@@ -1,17 +1,17 @@
-# bs-react-intl-extractor
+# rescript-react-intl-extractor
 
 Extracts messages for localization from [ReScript] or [Reason] source files.
-This assumes that you are using the [bs-react-intl] 2.x bindings for [react-intl].
+This assumes that you are using the [rescript-react-intl] 2.x bindings for [react-intl].
 
-[![NPM](https://nodei.co/npm/bs-react-intl-extractor-bin.png?compact=true)](https://nodei.co/npm/bs-react-intl-extractor-bin/)  
-![Build Status](https://github.com/cknitt/bs-react-intl-extractor/workflows/CI/badge.svg)
+[![NPM](https://nodei.co/npm/rescript-react-intl-extractor-bin.png?compact=true)](https://nodei.co/npm/rescript-react-intl-extractor-bin/)  
+![Build Status](https://github.com/cca-io/rescript-react-intl-extractor/workflows/CI/badge.svg)
 
 ## Installation
 
 Binaries for macOS, Linux and Windows can be installed via npm or yarn. For global installation, run
 
 ```sh
-npm install -g bs-react-intl-extractor-bin
+npm install -g rescript-react-intl-extractor-bin
 ```
 
 Alternatively, the binaries are also available for download on the [releases page].
@@ -19,7 +19,7 @@ Alternatively, the binaries are also available for download on the [releases pag
 ## Usage
 
 ```sh
-bs-react-intl-extractor [--allow-duplicates] [path...]
+rescript-react-intl-extractor [--allow-duplicates] [path...]
 ```
 
 where `path` is a ReScript (`*.res`) or Reason (`*.re`) source file or a directory containing such source files. Multiple files/directories may be specified.
@@ -149,7 +149,7 @@ Run the tests:
 
 [rescript]: https://rescript-lang.org/
 [reason]: https://reasonml.github.io
-[bs-react-intl]: https://github.com/alexfedoseev/bs-react-intl
+[rescript-react-intl]: https://github.com/cca-io/rescript-react-intl
 [react-intl]: https://github.com/yahoo/react-intl
-[releases page]: https://github.com/cknitt/bs-react-intl-extractor/releases
+[releases page]: https://github.com/cca-io/rescript-react-intl-extractor/releases
 [esy]: https://esy.sh

@@ -6,7 +6,7 @@ const { version } = JSON.parse(packageJson);
 
 const exeName = getExeName();
 const platform = getPlatformName();
-const artifactName = `bs-react-intl-extractor-${version}-${platform}`;
+const artifactName = `rescript-react-intl-extractor-${version}-${platform}`;
 
 // For passing output to subsequent GitHub actions
 console.log(`::set-output name=exe_name::${exeName}`);
@@ -32,8 +32,8 @@ function getExeName() {
 
   switch (platform) {
     case "win32":
-      return "bs-react-intl-extractor.exe";
+      return "rescript-react-intl-extractor.exe";
     default:
-      return "bs-react-intl-extractor";
+      return "rescript-react-intl-extractor";
   }
 }

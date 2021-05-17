@@ -1,12 +1,12 @@
 {
-  "name": "bs-react-intl-extractor",
+  "name": "rescript-react-intl-extractor",
   "version": "0.10.0",
-  "description": "Message extractor for bs-react-intl",
+  "description": "Message extractor for rescript-react-intl",
   "author": "Christoph Knittel <christoph.knittel@cca.io>",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/cknitt/bs-react-intl-extractor.git"
+    "url": "https://github.com/cca-io/rescript-react-intl-extractor.git"
   },
   "esy": {
     "build": "dune build -p #{self.name}",
