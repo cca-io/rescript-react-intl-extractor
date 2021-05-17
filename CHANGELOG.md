@@ -6,6 +6,8 @@
 - NPM package renamed to `rescript-react-intl-extractor-bin`.
 - Updated ReScript parser version to bd995f (ReScript 9.1.2).
 
+CI build is currently broken for Windows, therefore there is no Windows binary for this release.
+
 ## 0.10.0 - 2021-01-10
 
 - Added ReScript support (ReScript 7cc70c9). 🎉
