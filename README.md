@@ -1,7 +1,8 @@
 # rescript-react-intl-extractor
 
-Extracts messages for localization from [ReScript] or [Reason] source files.
-This assumes that you are using the [rescript-react-intl] 2.x bindings for [react-intl].
+Extracts messages for localization from [ReScript] source files. Also supports the legacy [Reason] syntax.
+
+This assumes that you are using the [rescript-react-intl] bindings for [react-intl].
 
 [![NPM](https://nodei.co/npm/rescript-react-intl-extractor-bin.png?compact=true)](https://nodei.co/npm/rescript-react-intl-extractor-bin/)  
 ![Build Status](https://github.com/cca-io/rescript-react-intl-extractor/workflows/CI/badge.svg)
@@ -60,7 +61,7 @@ Formatted messages may be defined in your source files in one of the following w
 or
 
 ```rescript
-open ReactIntl;
+open ReactIntl
 ...
 <FormattedMessage id="some.message.id" defaultMessage="Some message" />
 ```
@@ -84,7 +85,7 @@ You also can pass descriptions to the records with:
 let foo = @intl.description("Hello description") {id: "message.hello", defaultMessage: "Hello"}
 ```
 
-## Message Definition (Reason Syntax)
+## Message Definition (Legacy Reason Syntax)
 
 Formatted messages may be defined in your source files in one of the following ways:
 
