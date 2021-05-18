@@ -15,7 +15,7 @@ jobs:
     strategy:
       matrix:
         node-version: [14.x]
-        os: [ubuntu-latest, macOS-latest, windows-2016]
+        os: [windows-2016]
 
     steps:
       - name: Use Node.js ${{ matrix.node-version }}
@@ -57,6 +57,21 @@ jobs:
           esy build
           # Cleanup build cache in case dependencies have changed
           esy cleanup .
+
+      - name: Test
+        shell: bash
+        run: |
+          echo $PATH
+
+      - name: Test
+        shell: bash
+        run: |
+          esy x which ls
+
+      - name: Test
+        shell: bash
+        run: |
+          esy x which Extract.exe
 
       - name: Test
         run: esy test
