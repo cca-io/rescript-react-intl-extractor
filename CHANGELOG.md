@@ -1,5 +1,8 @@
 # Changelog
 
+## 0.12.0 - 2021-05-24
+- [bs-react-intl-ppx](https://github.com/ahrefs/bs-react-intl-ppx) support added
+
 ## 0.11.0 - 2021-05-17
 
 - Repo renamed to `rescript-react-intl-extractor` and moved to the cca-io organization.

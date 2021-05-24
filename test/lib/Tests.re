@@ -60,3 +60,10 @@ describe("ReScript", ({test}) => {
     expect.string(json).toMatchSnapshot();
   })
 });
+
+describe("IntlPpx", ({test}) => {
+  test("full", ({expect}) => {
+    let json = extractAndGetJson(["testData/test5"]);
+    expect.string(json).toMatchSnapshot();
+  })
+});
