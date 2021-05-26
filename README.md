@@ -123,6 +123,7 @@ let foo = [@intl.description "Hello description"] {id: "message.hello", defaultM
 ```
 
 3.  within [intl-ppx](https://github.com/ahrefs/bs-react-intl-ppx)
+⚠ [ReScript team recommends not to use PPXes](https://forum.rescript-lang.org/t/some-thoughts-on-community-building/1474/25)
 
 ```reason
 let hello = [%intl "hello"]
