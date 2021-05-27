@@ -1,11 +1,3 @@
-npm-debug.log
+_build/
 .merlin
-yarn-error.log
-node_modules
-_build
-_esy
-_release
-*.byte
-*.native
-rescript-react-intl-extractor.install
 .DS_Store

@@ -1,5 +1,4 @@
 (executable
-  (name Extract)
-  (public_name Extract.exe)
-  (libraries lib)
-)
+ (name Extract)
+ (public_name Extract.exe)
+ (libraries lib))

@@ -1,9 +1,7 @@
 const fs = require("fs");
 const os = require("os");
 
-const packageJson = fs.readFileSync("package.json");
-const { version } = JSON.parse(packageJson);
-
+const version = getVersion();
 const exeName = getExeName();
 const platform = getPlatformName();
 const artifactName = `rescript-react-intl-extractor-${version}-${platform}`;
@@ -11,6 +9,13 @@ const artifactName = `rescript-react-intl-extractor-${version}-${platform}`;
 // For passing output to subsequent GitHub actions
 console.log(`::set-output name=exe_name::${exeName}`);
 console.log(`::set-output name=artifact_name::${artifactName}`);
+
+function getVersion() {
+  const duneProject = fs.readFileSync("dune-project");
+  const match = /\(version (.*)\)/.exec(duneProject);
+
+  return match[1];
+}
 
 function getPlatformName() {
   const platform = os.platform();

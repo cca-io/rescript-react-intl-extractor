@@ -136,25 +136,20 @@ The ReScript parser is included as a git submodule. Therefore, after checking ou
 
     git submodule update --init --recursive
 
-Install [esy] as follows:
+Install Ocaml and OPAM, and create an OPAM switch with OCaml version 4.06.1.
 
-    % npm install -g esy
+Then run
 
-Then you can install the project dependencies using:
+    opam pin add rescript-react-intl-extractor.dev . --no-action
+    opam install . --deps-only --with-doc --with-test
 
-    % esy install
+To build the project, run
 
-Then build the project dependencies along with the project itself:
+    opam exec -- dune build
 
-    % esy build
+To run the tests, do
 
-Run the compiled executable:
-
-    % esy x Extract.exe
-
-Run the tests:
-
-    % esy test
+    opam exec -- dune runtest
 
 [rescript]: https://rescript-lang.org/
 [reason]: https://reasonml.github.io
