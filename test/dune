@@ -1,17 +1,3 @@
-(library
-   (name libTest)
-   ; the linkall flag ensures that all of our tests are compiled and the
-   ; -g flag emits debugging information
-   (ocamlopt_flags -linkall -g)
-   (libraries rely.lib lib)
-   (modules (:standard \ RunTests))
-)
-
-(executable
-  (name RunTests)
-  (public_name RunTests.exe)
-  (libraries rely.lib libTest)
-  (modules RunTests)
-)
-
-(include_subdirs unqualified)
+(test
+ (name test)
+ (libraries alcotest lib))

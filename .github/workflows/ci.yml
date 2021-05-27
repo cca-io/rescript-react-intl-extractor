@@ -11,75 +11,55 @@ on:
 jobs:
   build:
     name: Build and test on ${{ matrix.os }}
-    runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        node-version: [14.x]
-        os: [ubuntu-latest, macOS-latest, windows-2016]
+        os:
+          - macos-latest
+          - ubuntu-latest
+          - windows-latest
+
+    runs-on: ${{ matrix.os }}
 
     steps:
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v1
-        with:
-          node-version: ${{ matrix.node-version }}
-
       - name: Checkout repository
         uses: actions/checkout@v2
 
       - name: Checkout submodules
         run: git submodule update --init --recursive
 
-      - name: Install esy
-        run: npm i -g esy@0.6.10
-
-      - name: Restore esy install cache
-        uses: actions/cache@v1
+      - name: Use OCaml 4.06.1
+        uses: ocaml/setup-ocaml@v2
         with:
-          path: ~/.esy/source
-          key: source-${{ hashFiles('**/index.json') }}
+          ocaml-compiler: 4.06.1
 
-      - name: esy install
-        run: esy install
-
-      - name: Get esy cache folder
-        id: print_esy_cache
-        run: node .github/workflows/print_esy_cache.js
-
-      - name: Restore esy build cache
-        uses: actions/cache@v1
-        with:
-          path: ${{ steps.print_esy_cache.outputs.esy_cache }}
-          key: build-${{ matrix.os }}-${{ hashFiles('**/index.json') }}
-          restore-keys: build-${{ matrix.os }}-
+      - name: OPAM install
+        run: opam install . --deps-only --with-test
 
       - name: Build
-        run: |
-          esy build
-          # Cleanup build cache in case dependencies have changed
-          esy cleanup .
+        run: opam exec -- dune build
 
       - name: Test
-        run: esy test
+        run: opam exec -- dune runtest
 
-      - name: (release only) Get artifact filenames
-        id: get_filenames
-        if: github.event_name != 'pull_request'
-        run: node .github/workflows/get_filenames.js
+      # - name: (release only) Get artifact filenames
+      #   id: get_filenames
+      #   if: github.event_name != 'pull_request'
+      #   run: node .github/workflows/get_filenames.js
 
-      - name: (release only) Get exe
-        if: github.event_name != 'pull_request'
-        shell: bash
-        run: |
-          # from https://stackoverflow.com/a/24848739/617787
-          s=$(pwd); d=$(dirname $(esy x which Extract.exe));
-          while [ "${d#$s/}" == "${d}" ]
-          do s=$(dirname $s);b="../${b}"; done;          
-          ESY__BINARY_PATH=${b}${d#$s/}/Extract.exe
-          mv "$ESY__BINARY_PATH" ${{ steps.get_filenames.outputs.exe_name }}
+      # - name: (release only) Get exe
+      #   if: github.event_name != 'pull_request'
+      #   shell: bash
+      #   run: |
+      #     # from https://stackoverflow.com/a/24848739/617787
+      #     s=$(pwd); d=$(dirname $(esy x which Extract.exe));
+      #     while [ "${d#$s/}" == "${d}" ]
+      #     do s=$(dirname $s);b="../${b}"; done;
+      #     ESY__BINARY_PATH=${b}${d#$s/}/Extract.exe
+      #     mv "$ESY__BINARY_PATH" ${{ steps.get_filenames.outputs.exe_name }}
 
-      - name: (release only) Upload artifact ${{ matrix.os }}
-        if: github.event_name != 'pull_request'
-        uses: actions/upload-artifact@v2
-        with:
-          name: ${{ steps.get_filenames.outputs.artifact_name }}
-          path: ${{ steps.get_filenames.outputs.exe_name }}
+      # - name: (release only) Upload artifact ${{ matrix.os }}
+      #   if: github.event_name != 'pull_request'
+      #   uses: actions/upload-artifact@v2
+      #   with:
+      #     name: ${{ steps.get_filenames.outputs.artifact_name }}
+      #     path: ${{ steps.get_filenames.outputs.exe_name }}

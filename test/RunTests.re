@@ -1,1 +1,0 @@
-LibTest.TestFramework.cli();
