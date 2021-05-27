@@ -122,6 +122,14 @@ You also can pass descriptions to the records with:
 let foo = [@intl.description "Hello description"] {id: "message.hello", defaultMessage: "Hello"};
 ```
 
+3.  within [intl-ppx](https://github.com/ahrefs/bs-react-intl-ppx)
+⚠ [ReScript team recommends not to use PPXes](https://forum.rescript-lang.org/t/some-thoughts-on-community-building/1474/25)
+
+```reason
+let hello = [%intl "hello"]
+let world = [%intl {msg: "world", desc: "Some description"}]
+```
+
 ## Building and Testing
 
 The ReScript parser is included as a git submodule. Therefore, after checking out the sources, first run
@@ -151,6 +159,7 @@ Run the tests:
 [rescript]: https://rescript-lang.org/
 [reason]: https://reasonml.github.io
 [rescript-react-intl]: https://github.com/cca-io/rescript-react-intl
+[bs-react-intl-ppx]: https://github.com/ahrefs/bs-react-intl-ppx
 [react-intl]: https://github.com/yahoo/react-intl
 [releases page]: https://github.com/cca-io/rescript-react-intl-extractor/releases
 [esy]: https://esy.sh
