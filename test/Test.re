@@ -201,7 +201,6 @@ let testSetExtract = [
 let testSetErrors = [
   test_case("Duplicates without flag", `Quick, testDuplicatesError),
   test_case("Path not found", `Quick, testPathNotFoundError),
-  // test_case("File not found", `Quick, testFileNotFoundError),
 ];
 
 let () =
