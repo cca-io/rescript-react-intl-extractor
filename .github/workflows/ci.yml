@@ -48,16 +48,16 @@ jobs:
 
       - name: (release only) Get artifact filenames
         id: get_filenames
-        # if: github.event_name != 'pull_request'
+        if: github.event_name != 'pull_request'
         run: node .github/workflows/get_filenames.js
 
       - name: (release only) Get exe
-        # if: github.event_name != 'pull_request'
+        if: github.event_name != 'pull_request'
         shell: bash
         run: mv _build/default/bin/Extract.exe ${{ steps.get_filenames.outputs.exe_name }}
 
       - name: (release only) Upload artifact ${{ matrix.os }}
-        # if: github.event_name != 'pull_request'
+        if: github.event_name != 'pull_request'
         uses: actions/upload-artifact@v2
         with:
           name: ${{ steps.get_filenames.outputs.artifact_name }}
