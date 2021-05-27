@@ -56,7 +56,7 @@ jobs:
         shell: bash
         run: mv _build/default/bin/Extract.exe ${{ steps.get_filenames.outputs.exe_name }}
 
-      - name: (release only) Upload artifact ${{ steps.get_filenames.outputs.artifact_name }}
+      - name: (release only) Upload artifact ${{ matrix.os }}
         # if: github.event_name != 'pull_request'
         uses: actions/upload-artifact@v2
         with:

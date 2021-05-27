@@ -2,6 +2,8 @@
 
 (name rescript-react-intl-extractor)
 
+(version 0.12.0)
+
 (generate_opam_files true)
 
 (license MIT)
