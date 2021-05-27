@@ -155,27 +155,6 @@ let testExtractIntlPpx = () =>
 ]|},
   );
 
-let testExtractDuplicates = () =>
-  testExtract(
-    ~duplicatesAllowed=true,
-    ["testData/test3/Test_3_1.re", "testData/test3/Test_3_2.re"],
-    {|[
-  { "id": "test3.msg1.1", "defaultMessage": "This is message 1.1" },
-  { "id": "test3.msg1.2", "defaultMessage": "This is message 1.2" },
-  { "id": "test3.msg1.3", "defaultMessage": "This is message 1.3" }
-]|},
-  );
-
-let testDuplicatesError = () => {
-  Alcotest.check_raises(
-    "duplicate messages not allowed",
-    Extractor.DuplicateMessageId("test3.msg1.1"),
-    () =>
-    extract(["testData/test3/Test_3_1.re", "testData/test3/Test_3_2.re"])
-    |> ignore
-  );
-};
-
 let testPathNotFoundError = () => {
   Alcotest.check_raises(
     "dir not found", Extractor.PathNotFound("testData/someDir"), () =>
@@ -188,23 +167,56 @@ let testPathNotFoundError = () => {
   );
 };
 
+let testDuplicatesOk = () =>
+  testExtract(
+    ~duplicatesAllowed=true,
+    ["testData/test3/Test_3_1.re", "testData/test3/Test_3_2.re"],
+    {|[
+  { "id": "test3.msg1.1", "defaultMessage": "This is message 1.1" },
+  { "id": "test3.msg1.2", "defaultMessage": "This is message 1.2" },
+  { "id": "test3.msg1.3", "defaultMessage": "This is message 1.3" }
+]|},
+  );
+
+let testDuplicatesNok = () => {
+  Alcotest.check_raises(
+    "default message not matching",
+    Extractor.DefaultMessageNotMatching("test3.msg1.1"),
+    () =>
+    extract(
+      ~duplicatesAllowed=true,
+      ["testData/test3/Test_3_1.re", "testData/test3/Test_3_3.re"],
+    )
+    |> ignore
+  );
+};
+
+let testDuplicatesNotAllowed = () => {
+  Alcotest.check_raises(
+    "duplicates not allowed", Extractor.DuplicateMessageId("test3.msg1.1"), () =>
+    extract(["testData/test3/Test_3_1.re", "testData/test3/Test_3_2.re"])
+    |> ignore
+  );
+};
+
 open Alcotest;
 
 let testSetExtract = [
   test_case("Extract Reason (full)", `Quick, testExtractFull),
   test_case("Extract Reason (partial)", `Quick, testExtractPartial),
-  test_case("Extract duplicates", `Quick, testExtractDuplicates),
   test_case("Extract ReScript", `Quick, testExtractReScript),
   test_case("Extract Intl PPX", `Quick, testExtractIntlPpx),
+  test_case("Path not found", `Quick, testPathNotFoundError),
 ];
 
-let testSetErrors = [
-  test_case("Duplicates without flag", `Quick, testDuplicatesError),
-  test_case("Path not found", `Quick, testPathNotFoundError),
+let testSetDuplicates = [
+  test_case("Extract duplicates", `Quick, testDuplicatesOk),
+  test_case("Default message not matching", `Quick, testDuplicatesNok),
+  test_case("Duplicates not allowed", `Quick, testDuplicatesNotAllowed),
 ];
 
 let () =
   run(
     "rescript-react-intl-extractor",
-    [("extract", testSetExtract), ("errors", testSetErrors)],
+    [("extract", testSetExtract), ("duplicates", testSetDuplicates)],
   );
