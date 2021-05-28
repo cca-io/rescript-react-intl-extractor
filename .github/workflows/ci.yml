@@ -46,19 +46,14 @@ jobs:
       - name: Test
         run: opam exec -- dune runtest
 
-      - name: (release only) Get artifact filenames
-        id: get_filenames
+      - name: (release only) Get artifact
+        id: get_artifact
         if: github.event_name != 'pull_request'
-        run: node .github/workflows/get_filenames.js
-
-      - name: (release only) Get exe
-        if: github.event_name != 'pull_request'
-        shell: bash
-        run: mv _build/default/bin/Extract.exe ${{ steps.get_filenames.outputs.exe_name }}
+        run: node .github/workflows/get_artifact.js
 
       - name: (release only) Upload artifact ${{ matrix.os }}
         if: github.event_name != 'pull_request'
         uses: actions/upload-artifact@v2
         with:
-          name: ${{ steps.get_filenames.outputs.artifact_name }}
-          path: ${{ steps.get_filenames.outputs.exe_name }}
+          name: ${{ steps.get_artifact.outputs.artifact_name }}
+          path: ${{ steps.get_artifact.outputs.exe_name }}
