@@ -6,7 +6,9 @@ const exeName = getExeName();
 const platform = getPlatformName();
 const artifactName = `rescript-react-intl-extractor-${version}-${platform}`;
 
-// For passing output to subsequent GitHub actions
+fs.copyFileSync("_build/default/bin/Extract.exe", exeName);
+
+// Pass exeName and artifactName to subsequent GitHub actions
 console.log(`::set-output name=exe_name::${exeName}`);
 console.log(`::set-output name=artifact_name::${artifactName}`);
 
