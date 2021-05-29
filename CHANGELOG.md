@@ -1,7 +1,12 @@
 # Changelog
 
-## 0.12.0 - 2021-05-24
-- [bs-react-intl-ppx](https://github.com/ahrefs/bs-react-intl-ppx) support added
+## 0.12.0 - 2021-05-29
+
+- [bs-react-intl-ppx](https://github.com/ahrefs/bs-react-intl-ppx) support added.
+- Reason 3.7.0.
+- Changed build process to directly use OPAM instead of esy. This fixes the Windows build issues.
+- Switched back from Rely to Alcotest as Rely is not on OPAM and Alcotest seems to be better maintained.
+- Perform Linux build on ubuntu-18.04 to fix GLIBC mismatch on Debian 10.
 
 ## 0.11.0 - 2021-05-17
 
