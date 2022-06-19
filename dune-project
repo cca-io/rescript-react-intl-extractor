@@ -29,8 +29,6 @@
   (alcotest :with-test)
   (ocaml
    (= 4.06.1))
-  (reason
-   (= 3.8.0))
   (yojson
    (= 1.7.0))
   dune))

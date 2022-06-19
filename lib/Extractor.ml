@@ -20,17 +20,7 @@ let extract ?(duplicatesAllowed = false) paths =
         | Some _ -> raise (DuplicateMessageId id))
   in
   let extractMessages ast = iterator.structure iterator ast in
-  let processReasonFile path =
-    let channel = open_in_bin path in
-    let lexbuf = Lexing.from_channel channel in
-    let ast =
-      let open Reason_toolchain in
-      RE.implementation lexbuf |> To_current.copy_structure
-    in
-    close_in channel;
-    extractMessages ast
-  in
-  let processReScriptFile path =
+  let processFile path =
     let channel = open_in_bin path in
     let src = really_input_string channel (in_channel_length channel) in
     close_in channel;
@@ -49,8 +39,7 @@ let extract ?(duplicatesAllowed = false) paths =
              processPath (Filename.concat path filename))
     else
       match Filename.extension path with
-      | ".re" -> processReasonFile path
-      | ".res" -> processReScriptFile path
+      | ".res" -> processFile path
       | _ -> ()
   in
   paths |> List.iter processPath;

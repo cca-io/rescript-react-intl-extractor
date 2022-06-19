@@ -1,3 +1,3 @@
 (library
  (name lib)
- (libraries reason yojson unix rescript_parser))
+ (libraries yojson unix rescript_parser))
