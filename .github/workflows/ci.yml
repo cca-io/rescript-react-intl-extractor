@@ -29,10 +29,10 @@ jobs:
         with:
           node-version: 16
 
-      - name: Use OCaml 4.06.1
+      - name: Use OCaml 4.14.0
         uses: ocaml/setup-ocaml@v2
         with:
-          ocaml-compiler: 4.06.1
+          ocaml-compiler: 4.14.0
 
       - name: OPAM install
         run: opam install . --deps-only --with-test
