@@ -32,7 +32,7 @@ let testExtractFull () =
 
 let testExtractPartial () =
   testExtract
-    ["testData/test1/subdir/Test_1_3.re"]
+    ["testData/test1/subdir/Test_1_3.res"]
     {|[ { "id": "test1.msg3.1", "defaultMessage": "This is message 3.1" } ]|}
 
 let testExtractReScript () =
@@ -150,12 +150,12 @@ let testPathNotFoundError () =
     (Extractor.PathNotFound "testData/someDir") (fun () ->
       extract ["testData/someDir"] |> ignore);
   Alcotest.check_raises "file not found"
-    (Extractor.PathNotFound "testData/test1/SomeFile.re") (fun () ->
-      extract ["testData/test1/SomeFile.re"] |> ignore)
+    (Extractor.PathNotFound "testData/test1/SomeFile.res") (fun () ->
+      extract ["testData/test1/SomeFile.res"] |> ignore)
 
 let testDuplicatesOk () =
   testExtract ~duplicatesAllowed:true
-    ["testData/test3/Test_3_1.re"; "testData/test3/Test_3_2.re"]
+    ["testData/test3/Test_3_1.res"; "testData/test3/Test_3_2.res"]
     {|[
   { "id": "test3.msg1.1", "defaultMessage": "This is message 1.1" },
   { "id": "test3.msg1.2", "defaultMessage": "This is message 1.2" },
@@ -166,13 +166,13 @@ let testDuplicatesNok () =
   Alcotest.check_raises "default message not matching"
     (Extractor.DefaultMessageNotMatching "test3.msg1.1") (fun () ->
       extract ~duplicatesAllowed:true
-        ["testData/test3/Test_3_1.re"; "testData/test3/Test_3_3.re"]
+        ["testData/test3/Test_3_1.res"; "testData/test3/Test_3_3.res"]
       |> ignore)
 
 let testDuplicatesNotAllowed () =
   Alcotest.check_raises "duplicates not allowed"
     (Extractor.DuplicateMessageId "test3.msg1.1") (fun () ->
-      extract ["testData/test3/Test_3_1.re"; "testData/test3/Test_3_2.re"]
+      extract ["testData/test3/Test_3_1.res"; "testData/test3/Test_3_2.res"]
       |> ignore)
 
 open Alcotest
