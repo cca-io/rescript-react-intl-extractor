@@ -1,20 +1,16 @@
-open Lib;
+open Lib
 
-let extract = (~duplicatesAllowed=?, paths) => {
-  let messages = Extractor.extract(~duplicatesAllowed?, paths);
+let extract ?duplicatesAllowed paths =
+  let messages = Extractor.extract ?duplicatesAllowed paths in
+  let jsonObj = `List (messages |> List.map Message.toJson) in
+  Yojson.Basic.pretty_to_string jsonObj
 
-  let jsonObj = `List(messages |> List.map(Message.toJson));
-  Yojson.Basic.pretty_to_string(jsonObj);
-};
+let testExtract ?duplicatesAllowed paths expected =
+  let jsonString = extract ?duplicatesAllowed paths in
+  Alcotest.check Alcotest.string "extract" expected jsonString
 
-let testExtract = (~duplicatesAllowed=?, paths, expected) => {
-  let jsonString = extract(~duplicatesAllowed?, paths);
-  Alcotest.check(Alcotest.string, "extract", expected, jsonString);
-};
-
-let testExtractFull = () =>
-  testExtract(
-    ["testData/test1"],
+let testExtractFull () =
+  testExtract ["testData/test1"]
     {|[
   { "id": "test1.msg1.1", "defaultMessage": "This is message 1.1" },
   { "id": "test1.msg1.2", "defaultMessage": "This is message 1.2" },
@@ -32,18 +28,15 @@ let testExtractFull = () =>
     "description": "Description for message 1.9"
   },
   { "id": "test1.msg3.1", "defaultMessage": "This is message 3.1" }
-]|},
-  );
+]|}
 
-let testExtractPartial = () =>
-  testExtract(
-    ["testData/test1/subdir/Test_1_3.re"],
-    {|[ { "id": "test1.msg3.1", "defaultMessage": "This is message 3.1" } ]|},
-  );
+let testExtractPartial () =
+  testExtract
+    ["testData/test1/subdir/Test_1_3.re"]
+    {|[ { "id": "test1.msg3.1", "defaultMessage": "This is message 3.1" } ]|}
 
-let testExtractReScript = () =>
-  testExtract(
-    ["testData/test4"],
+let testExtractReScript () =
+  testExtract ["testData/test4"]
     {|[
   { "id": "test4.msg1.1", "defaultMessage": "This is message 1.1" },
   { "id": "test4.msg1.2", "defaultMessage": "This is message 1.2" },
@@ -61,12 +54,10 @@ let testExtractReScript = () =>
     "description": "Description for message 1.9"
   },
   { "id": "test4.msg3.1", "defaultMessage": "This is message 3.1" }
-]|},
-  );
+]|}
 
-let testExtractIntlPpx = () =>
-  testExtract(
-    ["testData/test5"],
+let testExtractIntlPpx () =
+  testExtract ["testData/test5"]
     {|[
   {
     "id": "07ef8ec9f2dd894c45b447292d527f4a",
@@ -152,71 +143,55 @@ let testExtractIntlPpx = () =>
     "defaultMessage": "This is message 5.1.5",
     "description": "This is description for message 5.1.5"
   }
-]|},
-  );
+]|}
 
-let testPathNotFoundError = () => {
-  Alcotest.check_raises(
-    "dir not found", Extractor.PathNotFound("testData/someDir"), () =>
-    extract(["testData/someDir"]) |> ignore
-  );
+let testPathNotFoundError () =
+  Alcotest.check_raises "dir not found"
+    (Extractor.PathNotFound "testData/someDir") (fun () ->
+      extract ["testData/someDir"] |> ignore);
+  Alcotest.check_raises "file not found"
+    (Extractor.PathNotFound "testData/test1/SomeFile.re") (fun () ->
+      extract ["testData/test1/SomeFile.re"] |> ignore)
 
-  Alcotest.check_raises(
-    "file not found", Extractor.PathNotFound("testData/test1/SomeFile.re"), () =>
-    extract(["testData/test1/SomeFile.re"]) |> ignore
-  );
-};
-
-let testDuplicatesOk = () =>
-  testExtract(
-    ~duplicatesAllowed=true,
-    ["testData/test3/Test_3_1.re", "testData/test3/Test_3_2.re"],
+let testDuplicatesOk () =
+  testExtract ~duplicatesAllowed:true
+    ["testData/test3/Test_3_1.re"; "testData/test3/Test_3_2.re"]
     {|[
   { "id": "test3.msg1.1", "defaultMessage": "This is message 1.1" },
   { "id": "test3.msg1.2", "defaultMessage": "This is message 1.2" },
   { "id": "test3.msg1.3", "defaultMessage": "This is message 1.3" }
-]|},
-  );
+]|}
 
-let testDuplicatesNok = () => {
-  Alcotest.check_raises(
-    "default message not matching",
-    Extractor.DefaultMessageNotMatching("test3.msg1.1"),
-    () =>
-    extract(
-      ~duplicatesAllowed=true,
-      ["testData/test3/Test_3_1.re", "testData/test3/Test_3_3.re"],
-    )
-    |> ignore
-  );
-};
+let testDuplicatesNok () =
+  Alcotest.check_raises "default message not matching"
+    (Extractor.DefaultMessageNotMatching "test3.msg1.1") (fun () ->
+      extract ~duplicatesAllowed:true
+        ["testData/test3/Test_3_1.re"; "testData/test3/Test_3_3.re"]
+      |> ignore)
 
-let testDuplicatesNotAllowed = () => {
-  Alcotest.check_raises(
-    "duplicates not allowed", Extractor.DuplicateMessageId("test3.msg1.1"), () =>
-    extract(["testData/test3/Test_3_1.re", "testData/test3/Test_3_2.re"])
-    |> ignore
-  );
-};
+let testDuplicatesNotAllowed () =
+  Alcotest.check_raises "duplicates not allowed"
+    (Extractor.DuplicateMessageId "test3.msg1.1") (fun () ->
+      extract ["testData/test3/Test_3_1.re"; "testData/test3/Test_3_2.re"]
+      |> ignore)
 
-open Alcotest;
+open Alcotest
+let testSetExtract =
+  [
+    test_case "Extract Reason (full)" `Quick testExtractFull;
+    test_case "Extract Reason (partial)" `Quick testExtractPartial;
+    test_case "Extract ReScript" `Quick testExtractReScript;
+    test_case "Extract Intl PPX" `Quick testExtractIntlPpx;
+    test_case "Path not found" `Quick testPathNotFoundError;
+  ]
 
-let testSetExtract = [
-  test_case("Extract Reason (full)", `Quick, testExtractFull),
-  test_case("Extract Reason (partial)", `Quick, testExtractPartial),
-  test_case("Extract ReScript", `Quick, testExtractReScript),
-  test_case("Extract Intl PPX", `Quick, testExtractIntlPpx),
-  test_case("Path not found", `Quick, testPathNotFoundError),
-];
-
-let testSetDuplicates = [
-  test_case("Extract duplicates", `Quick, testDuplicatesOk),
-  test_case("Default message not matching", `Quick, testDuplicatesNok),
-  test_case("Duplicates not allowed", `Quick, testDuplicatesNotAllowed),
-];
+let testSetDuplicates =
+  [
+    test_case "Extract duplicates" `Quick testDuplicatesOk;
+    test_case "Default message not matching" `Quick testDuplicatesNok;
+    test_case "Duplicates not allowed" `Quick testDuplicatesNotAllowed;
+  ]
 
 let () =
-  run(
-    "rescript-react-intl-extractor",
-    [("extract", testSetExtract), ("duplicates", testSetDuplicates)],
-  );
+  run "rescript-react-intl-extractor"
+    [("extract", testSetExtract); ("duplicates", testSetDuplicates)]
