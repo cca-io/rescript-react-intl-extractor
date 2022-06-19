@@ -26,10 +26,10 @@ jobs:
         with:
           submodules: true
 
-      - name: Use Node.js 14
-        uses: actions/setup-node@v2
+      - name: Use Node.js 16
+        uses: actions/setup-node@v3
         with:
-          node-version: 14
+          node-version: 16
 
       - name: Use OCaml 4.06.1
         uses: ocaml/setup-ocaml@v2
