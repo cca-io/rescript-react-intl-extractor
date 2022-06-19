@@ -145,6 +145,20 @@ let testExtractIntlPpx () =
   }
 ]|}
 
+let testExtractEscaped () =
+  testExtract ["testData/testEscape"]
+    {|[
+  {
+    "id": "ReScript.decodeError",
+    "defaultMessage":
+      "The configuration could not be decoded.\n\nPlease contact your administrator."
+  },
+  {
+    "id": "ReScript.trackingActive",
+    "defaultMessage": "Tracking active in \"{incident}\""
+  }
+]|}
+
 let testPathNotFoundError () =
   Alcotest.check_raises "dir not found"
     (Extractor.PathNotFound "testData/someDir") (fun () ->
@@ -181,6 +195,7 @@ let testSetExtract =
     test_case "Extract full" `Quick testExtractFull;
     test_case "Extract partial" `Quick testExtractPartial;
     test_case "Extract ReScript" `Quick testExtractReScript;
+    test_case "Extract messages with escape chars" `Quick testExtractEscaped;
     test_case "Extract Intl PPX" `Quick testExtractIntlPpx;
     test_case "Path not found" `Quick testPathNotFoundError;
   ]
