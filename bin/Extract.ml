@@ -49,6 +49,6 @@ let run () =
   | {showVersion = true} -> print_endline Version.version
   | {paths = []} -> Arg.usage args usage
   | {paths; duplicatesAllowed} -> extract ~duplicatesAllowed paths
-
 ;;
+
 run ()

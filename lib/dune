@@ -1,3 +1,5 @@
 (library
  (name lib)
- (libraries yojson unix rescript_parser))
+ (flags
+  (-open Compilerlibs406 -open Syntax))
+ (libraries yojson unix syntax compilerlibs406))

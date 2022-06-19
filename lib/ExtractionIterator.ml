@@ -171,7 +171,7 @@ let getIterator callback =
         default_iterator.structure iterator structure);
     expr =
       (fun iterator expr ->
-        ( match expr with
+        (match expr with
         | {pexp_desc = Pexp_apply ({pexp_desc = Pexp_ident {txt; _}}, labels)}
           when matchesFormattedMessage txt ->
           extractMessageFromLabels callback labels
@@ -180,6 +180,6 @@ let getIterator callback =
          _;
         } ->
           extractMessageFromExtension callback item
-        | _ -> () );
+        | _ -> ());
         default_iterator.expr iterator expr);
   }

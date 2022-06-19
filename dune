@@ -1,5 +1,9 @@
+(dirs bin lib compiler-libs-406 src test)
+
 (env
-  (dev
-    (flags (:standard -w -9)))
-  (release
-    (flags (:standard -w -9))))
+ (dev
+  (flags
+   (:standard -w -9)))
+ (release
+  (flags
+   (:standard -w -9))))
