@@ -47,11 +47,14 @@ jobs:
           opam-pin: false
           opam-depext: false
 
+      - name: Lint format
+        uses: ocaml/setup-ocaml/lint-fmt@v2
+
+      - name: Lint OPAM
+        uses: ocaml/setup-ocaml/lint-opam@v2
+
       - name: OPAM install
         run: opam install . --deps-only --with-test
-
-      - name: Check format
-        run: opam exec -- dune build @fmt
 
       - name: Build
         run: opam exec -- dune build
