@@ -1,8 +1,7 @@
-(copy_files ./syntax/src/*.ml)
-(copy_files ./syntax/src/*.mli)
+(copy_files ./syntax/src/*.{ml,mli})
+
+(copy_files ./syntax/compiler-libs-406/*.{ml,mli})
 
 (library
-  (name rescript_parser)
-  (wrapped false)
-  (libraries compiler-libs)
-)
+ (name rescript_parser)
+ (modules_without_implementation annot asttypes outcometree parsetree))

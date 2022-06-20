@@ -12,6 +12,7 @@ jobs:
   build:
     name: Build and test on ${{ matrix.os }}
     strategy:
+      fail-fast: false
       matrix:
         os:
           - macos-latest
@@ -21,24 +22,34 @@ jobs:
     runs-on: ${{ matrix.os }}
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
+      - name: "Windows: Set git to use LF"
+        if: runner.os == 'Windows'
+        run: |
+          git config --global core.autocrlf false
+          git config --global core.eol lf
 
-      - name: Checkout submodules
-        run: git submodule update --init --recursive
-
-      - name: Use Node.js 14
-        uses: actions/setup-node@v2
+      - name: Checkout
+        uses: actions/checkout@v3
         with:
-          node-version: 14
+          submodules: true
 
-      - name: Use OCaml 4.06.1
+      - name: Use Node.js 16
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+
+      - name: Use OCaml 4.14.0
         uses: ocaml/setup-ocaml@v2
         with:
-          ocaml-compiler: 4.06.1
+          ocaml-compiler: 4.14.0
+          opam-pin: false
+          opam-depext: false
 
       - name: OPAM install
         run: opam install . --deps-only --with-test
+
+      - name: Check format
+        run: opam exec -- dune build @fmt
 
       - name: Build
         run: opam exec -- dune build
