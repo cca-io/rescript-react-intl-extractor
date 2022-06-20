@@ -14,6 +14,7 @@ let fromStringMap ?description map =
   | _ -> None
 
 let toJson {id; defaultMessage; description} : Yojson.Basic.t =
+  let defaultMessage = Scanf.unescaped defaultMessage in
   match description with
   | Some description ->
     `Assoc
