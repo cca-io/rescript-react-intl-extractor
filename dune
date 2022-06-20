@@ -1,5 +1,11 @@
+(dirs bin lib syntax test)
+
+(vendored_dirs rescript_parser)
+
 (env
-  (dev
-    (flags (:standard -w -9)))
-  (release
-    (flags (:standard -w -9))))
+ (dev
+  (flags
+   (:standard -w -9)))
+ (release
+  (flags
+   (:standard -w -9))))
