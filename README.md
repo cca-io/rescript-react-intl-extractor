@@ -1,6 +1,6 @@
 # rescript-react-intl-extractor
 
-Extracts messages for localization from [ReScript] source files. Also supports the legacy [Reason] syntax.
+Extracts messages for localization from [ReScript] source files.
 
 This assumes that you are using the [rescript-react-intl] bindings for [react-intl].
 
@@ -23,7 +23,7 @@ Alternatively, the binaries are also available for download on the [releases pag
 rescript-react-intl-extractor [--allow-duplicates] [path...]
 ```
 
-where `path` is a ReScript (`*.res`) or Reason (`*.re`) source file or a directory containing such source files. Multiple files/directories may be specified.
+where `path` is a ReScript (`*.res`) source file or a directory containing such source files. Multiple files/directories may be specified.
 
 The `--allow-duplicates` option allows messages with identical `id` props if the `defaultMessage` props are identical as well.
 
@@ -85,58 +85,13 @@ You also can pass descriptions to the records with:
 let foo = @intl.description("Hello description") {id: "message.hello", defaultMessage: "Hello"}
 ```
 
-## Message Definition (Legacy Reason Syntax)
-
-Formatted messages may be defined in your source files in one of the following ways:
-
-1.  inline in `FormattedMessage`:
-
-```reason
-<ReactIntl.FormattedMessage id="some.message.id" defaultMessage="Some message" />
-```
-
-or
-
-```reason
-open ReactIntl;
-...
-<FormattedMessage id="some.message.id" defaultMessage="Some message" />
-```
-
-2.  within a module with the `[@intl.messages]` attribute:
-
-```reason
-open ReactIntl;
-
-module Msg = {
-  [@intl.messages];
-
-  let hello = {id: "message.hello", defaultMessage: "Hello"};
-  let world = {id: "message.world", defaultMessage: "World"};
-};
-```
-
-You also can pass descriptions to the records with:
-
-```reason
-let foo = [@intl.description "Hello description"] {id: "message.hello", defaultMessage: "Hello"};
-```
-
-3.  within [intl-ppx](https://github.com/ahrefs/bs-react-intl-ppx)
-⚠ [ReScript team recommends not to use PPXes](https://forum.rescript-lang.org/t/some-thoughts-on-community-building/1474/25)
-
-```reason
-let hello = [%intl "hello"]
-let world = [%intl {msg: "world", desc: "Some description"}]
-```
-
 ## Building and Testing
 
 The ReScript parser is included as a git submodule. Therefore, after checking out the sources, first run
 
     git submodule update --init --recursive
 
-Install Ocaml and OPAM, and create an OPAM switch with OCaml version 4.06.1.
+Install OCaml and OPAM, and create an OPAM switch with OCaml version 4.14.0.
 
 Then run
 
@@ -152,7 +107,6 @@ To run the tests, do
     opam exec -- dune runtest
 
 [rescript]: https://rescript-lang.org/
-[reason]: https://reasonml.github.io
 [rescript-react-intl]: https://github.com/cca-io/rescript-react-intl
 [bs-react-intl-ppx]: https://github.com/ahrefs/bs-react-intl-ppx
 [react-intl]: https://github.com/yahoo/react-intl

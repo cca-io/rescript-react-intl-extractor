@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.13.0 - 2022-09-18
+
+- Updated ReScript parser version to 241fefd (ReScript 10.0.1).
+- Removed Reason support.
+- Unescape extracted strings to fix issue with duplicate newlines.
+- Build with OCaml 4.14.0.
+- Perform Linux build on ubuntu-20.04 as ubuntu-18.04 is deprecated.
+
 ## 0.12.0 - 2021-05-29
 
 - [bs-react-intl-ppx](https://github.com/ahrefs/bs-react-intl-ppx) support added.
