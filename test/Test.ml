@@ -150,8 +150,7 @@ let testExtractEscaped () =
     {|[
   {
     "id": "ReScript.decodeError",
-    "defaultMessage":
-      "The configuration could not be decoded.\n\nPlease contact your administrator."
+    "defaultMessage": "The configuration could not be decoded.\n\nPlease contact your administrator."
   },
   {
     "id": "ReScript.trackingActive",
