@@ -1,8 +1,8 @@
 open Lib
 
-let extract ~duplicatesAllowed ~paths =
+let extract ~duplicatesAllowed ~verbose ~paths =
   try
-    let messages = Extractor.extract ~duplicatesAllowed paths in
+    let messages = Extractor.extract ~duplicatesAllowed ~verbose paths in
     let json = `List (messages |> List.map Message.toJson) in
     json |> Yojson.Basic.pretty_to_channel stdout;
     print_newline ()
@@ -25,19 +25,31 @@ type options = {
   mutable showVersion: bool;
   mutable paths: string list;
   mutable duplicatesAllowed: bool;
+  mutable verbose: bool;
 }
 
 let run () =
-  let options = {showVersion = false; paths = []; duplicatesAllowed = false} in
+  let options =
+    {
+      showVersion = false;
+      paths = [];
+      duplicatesAllowed = false;
+      verbose = false;
+    }
+  in
   let processInputFilename filename =
     options.paths <- filename :: options.paths
   in
   let allowDuplicates () = options.duplicatesAllowed <- true in
   let showVersion () = options.showVersion <- true in
+  let verbose () = options.verbose <- true in
 
   let args =
     [
       ("-v", Arg.Unit showVersion, "shows the program version");
+      ( "--verbose",
+        Arg.Unit verbose,
+        "log some information like the current processed file path" );
       ( "--allow-duplicates",
         Arg.Unit allowDuplicates,
         "allows messages with identical `id` props if `defaultMessage` props \
@@ -51,6 +63,7 @@ let run () =
   match options with
   | {showVersion = true} -> print_endline Version.version
   | {paths = []} -> Arg.usage args usage
-  | {paths; duplicatesAllowed} -> extract ~duplicatesAllowed ~paths
+  | {paths; duplicatesAllowed; verbose} ->
+    extract ~duplicatesAllowed ~verbose ~paths
 
 let () = run ()
