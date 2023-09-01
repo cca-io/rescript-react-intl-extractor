@@ -2,7 +2,7 @@ exception PathNotFound of string
 exception DuplicateMessageId of string
 exception DefaultMessageNotMatching of string
 
-let extract ?(duplicatesAllowed = false) paths =
+let extract ?(duplicatesAllowed = false) ?(verbose = false) paths =
   let messages = ref StringMap.empty in
   let iterator =
     ExtractionIterator.getIterator (fun message ->
@@ -21,6 +21,7 @@ let extract ?(duplicatesAllowed = false) paths =
   in
   let extractMessages ast = iterator.structure iterator ast in
   let processFile path =
+    if verbose then Printf.eprintf "Processing file: %s\n%!" path;
     let channel = open_in_bin path in
     let src = really_input_string channel (in_channel_length channel) in
     close_in channel;
