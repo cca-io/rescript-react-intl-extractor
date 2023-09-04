@@ -4,6 +4,7 @@
 
 - Updated ReScript parser version to c4cf5fc (ReScript 10.1.4).
 - Fix crash when trying to unescape default message.
+- Add --verbose flag.
 
 ## 0.13.0 - 2022-09-18
 
