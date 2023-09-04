@@ -13,8 +13,14 @@ let fromStringMap ?description map =
   | Some id, Some defaultMessage -> Some {id; defaultMessage; description}
   | _ -> None
 
+let tryUnescape s =
+  try Scanf.unescaped s
+  with Scanf.Scan_failure err ->
+    (* ignore and return original string instead *)
+    s
+
 let toJson {id; defaultMessage; description} : Yojson.Basic.t =
-  let defaultMessage = Scanf.unescaped defaultMessage in
+  let defaultMessage = tryUnescape defaultMessage in
   match description with
   | Some description ->
     `Assoc
