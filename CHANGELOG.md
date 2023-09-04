@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.14.0 - 2023-09-04
+
+- Updated ReScript parser version to c4cf5fc (ReScript 10.1.4).
+- Fix crash when trying to unescape default message.
+
 ## 0.13.0 - 2022-09-18
 
 - Updated ReScript parser version to 241fefd (ReScript 10.0.1).
