@@ -40,10 +40,10 @@ jobs:
         with:
           node-version: 16
 
-      - name: Use OCaml 4.14.0
+      - name: Use OCaml 4.14.1
         uses: ocaml/setup-ocaml@v2
         with:
-          ocaml-compiler: 4.14.0
+          ocaml-compiler: 4.14.1
           opam-pin: false
           opam-depext: false
 
