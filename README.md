@@ -91,7 +91,7 @@ The ReScript parser is included as a git submodule. Therefore, after checking ou
 
     git submodule update --init --recursive
 
-Install OCaml and OPAM, and create an OPAM switch with OCaml version 4.14.0.
+Install OCaml and OPAM, and create an OPAM switch with OCaml version 4.14.1.
 
 Then run
 

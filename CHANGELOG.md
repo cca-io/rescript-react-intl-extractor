@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.15.0 - next
+
+- Build with OCaml 4.14.1.
+
 ## 0.14.0 - 2023-09-04
 
 - Updated ReScript parser version to c4cf5fc (ReScript 10.1.4).
