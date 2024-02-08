@@ -31,12 +31,12 @@ jobs:
           git config --global core.eol lf
 
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           submodules: true
 
       - name: Use Node.js 16
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: 16
 
@@ -66,7 +66,7 @@ jobs:
 
       - name: (release only) Upload artifact ${{ matrix.os }}
         if: github.event_name != 'pull_request'
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
           name: ${{ steps.get_artifact.outputs.artifact_name }}
           path: ${{ steps.get_artifact.outputs.exe_name }}
