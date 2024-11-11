@@ -35,17 +35,16 @@ jobs:
         with:
           submodules: true
 
-      - name: Use Node.js 16
+      - name: Use Node.js 22
         uses: actions/setup-node@v4
         with:
-          node-version: 16
+          node-version: 22
 
       - name: Use OCaml 4.14.1
-        uses: ocaml/setup-ocaml@v2
+        uses: ocaml/setup-ocaml@v3.0.14
         with:
           ocaml-compiler: 4.14.1
           opam-pin: false
-          opam-depext: false
 
       - name: OPAM install
         run: opam install . --deps-only --with-test
