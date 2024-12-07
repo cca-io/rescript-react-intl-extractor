@@ -41,7 +41,7 @@ jobs:
           node-version: 22
 
       - name: Use OCaml 4.14.1
-        uses: ocaml/setup-ocaml@v3.0.14
+        uses: ocaml/setup-ocaml@v3.1.4
         with:
           ocaml-compiler: 4.14.1
           opam-pin: false
